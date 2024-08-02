@@ -38,7 +38,8 @@ function install-controller-packages() {
 	apt-get install rabbitmq-server -y
 	
 	echo "Installing Keystone..."
-	echo "manual" > /etc/init/keystone.override
+    #Keystone 자동 시작 방지
+    #echo "manual" > /etc/init/keystone.override
 	sleep 3
 	apt-get install keystone apache2 libapache2-mod-wsgi memcached python3-memcache -y
 	
