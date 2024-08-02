@@ -56,7 +56,7 @@ elif [ "$1" == "controller" ]
 	then
 		if [ $# -ne 2 ]
 		then
-			echo "Correct syntax: $0 controller <controller_ip_address>"
+			echo "올바른 형식: $0 controller <controller_ip_address>"
 			exit 1;
 		fi
 		configure-mysql-controller $2

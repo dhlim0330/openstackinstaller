@@ -25,7 +25,7 @@ function install-common-packages() {
 	sleep 2
 	apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
 	apt-get autoremove -y
-	apt-get install python-openstackclient -y
+	apt-get install python3-openstackclient -y
 }
 
 
@@ -121,5 +121,5 @@ echo "********************************************"
 echo "다음 단계:"
 echo "** lib/config-paramters.sh 에서 인터페이스 이름, 패스워드 수정"
 echo "** 각 노드에서 다음 커맨드 실행:"
-echo "    configure.sh <컨트롤러 IP 주소>"
+echo "    configure.sh <controller-ip>"
 echo "********************************************"
