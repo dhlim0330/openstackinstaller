@@ -1,28 +1,28 @@
 function install-neutron-packages-controller() {
-	echo "Installing Neutron for Controller..."
+	echo "Neutron (컨트롤러 노드) 설치..."
 	sleep 2
 	apt-get install neutron-server neutron-plugin-ml2 neutron-l3-agent \
   		neutron-openvswitch-agent neutron-dhcp-agent neutron-metadata-agent -y
 }
 
 function install-cinder-packages-controller() {
-	echo "Installing Cinder for Controller..."
+	echo "Cinder (컨트롤러 노드) 설치..."
 	sleep 2
 	apt-get install cinder-api cinder-scheduler -y
 }
 
 function install-common-packages() {
-	echo "About to install crudini..."
+	echo "crudini 설치..."
 	apt-get install crudini -y
-	sleep 3
+	sleep 2
 
-	echo "About to install NTP Server..."
-	sleep 3
+	echo "NTP 서버 설치..."
+	sleep 2
 	apt-get install chrony -y
 	service chrony restart
 
-	echo "Doing full system update..."
-	sleep 3
+	echo "시스템 업데이트..."
+	sleep 2
 	apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
 	apt-get autoremove -y
 	apt-get install python-openstackclient -y
@@ -30,50 +30,50 @@ function install-common-packages() {
 
 
 function install-controller-packages() {
-	echo "Installing MariaDB and MongoDB..."
+	echo "MariaDB 설치..."
 	apt-get install mariadb-server python3-pymysql -y
 
-	echo "Installing RabbitMQ..." 
-	sleep 3
+	echo "RabbitMQ 설치..." 
+	sleep 2
 	apt-get install rabbitmq-server -y
 	
-	echo "Installing Keystone..."
+	echo "Keystone 설치..."
     #Keystone 자동 시작 방지
     #echo "manual" > /etc/init/keystone.override
 	sleep 3
 	apt-get install keystone apache2 libapache2-mod-wsgi memcached python3-memcache -y
 	
-	echo "Installing Glance..."
+	echo "Glance 설치..."
 	sleep 2
 	apt-get install glance -y
 
-	echo "Installing Placement..."
+	echo "Placement 설치..."
 	sleep 2
 	apt-get install placement-api -y
 	
-	echo "Installing Nova for Controller..."
+	echo "Nova (컨트롤러 노드) 설치..."
 	sleep 2
 	apt-get install nova-api nova-conductor nova-novncproxy nova-scheduler -y
 
 	install-neutron-packages-controller
 	
-	echo "Installing Horizon..."
+	echo "Horizon 설치..."
 	sleep 2
 	apt-get install openstack-dashboard -y
 	
 	install-cinder-packages-controller 
 
-	echo "Installing Network Node Components..."
+	echo "네트워크 노드 컴포넌트 설치..."
 	sleep 2
 	install-networknode-packages
 
-	echo "Doing autoremove..."
+	echo "autoremove 진행..."
 	sleep 2
 	apt-get autoremove -y
 }
 
 function install-networknode-packages() {
-	echo "About to install Neutron for Network Node..."
+	echo "Neutron (네트워크 노드) 설치..."
 	sleep 2
 	apt-get install neutron-server neutron-plugin-ml2 neutron-l3-agent \
   		neutron-openvswitch-agent neutron-dhcp-agent neutron-metadata-agent -y
@@ -81,11 +81,11 @@ function install-networknode-packages() {
 }
 
 function install-compute-packages() {
-	echo "About to install Nova for Compute..."
-	sleep 3
+	echo "Nova (컴퓨트 노드) 설치..."
+	sleep 2
 	apt-get install nova-compute sysfsutils -y
 
-	echo "About to install Neutron for Compute..."
+	echo "Neutron (컴퓨트 노드) 설치..."
 	sleep 2
 	apt-get install neutron-plugin-openvswitch-agent -y
 	
@@ -94,14 +94,14 @@ function install-compute-packages() {
 
 if [ $# -ne 1 ]
 	then
-		echo "Correct Syntax: $0 [ allinone | controller | compute | networknode ] "
+		echo "올바른 형식: $0 [ allinone | controller | compute | networknode ] "
 		exit 1;
 fi
 
 if [ "$1" == "allinone" ]
 	then
-		echo "Installing packages for All-in-One..."
-		sleep 5
+		echo "패키지 설치: All-in-One..."
+		sleep 2
 		install-common-packages
 		install-controller-packages
 		install-compute-packages
@@ -109,17 +109,17 @@ if [ "$1" == "allinone" ]
 elif [ "$1" == "controller" ] || [ "$1" == "compute" ] || [ "$1" == "networknode" ]
 	then
 		install-common-packages
-		echo "Installing packages for: "$1
-		sleep 5
+		echo "패키지 설치: "$1
+		sleep 2
 		install-$1-packages
 else
-	echo "Correct Syntax: $0 [ allinone | controller | compute | networknode ]"
+	echo "올바른 형식: $0 [ allinone | controller | compute | networknode ]"
 	exit 1;
 fi
 
 echo "********************************************"
-echo "NEXT STEPS:"
-echo "** Update lib/config-paramters.sh for Interface names"
-echo "** Run the below command on all nodes:"
-echo "            configure.sh <controller_ip_address>"
+echo "다음 단계:"
+echo "** lib/config-paramters.sh 에서 인터페이스 이름, 패스워드 수정"
+echo "** 각 노드에서 다음 커맨드 실행:"
+echo "    configure.sh <컨트롤러 IP 주소>"
 echo "********************************************"
