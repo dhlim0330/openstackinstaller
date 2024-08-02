@@ -3,19 +3,19 @@ source $(dirname $0)/config-parameters.sh
 
 if [ "$1" != "controller" ] && [ "$1" != "compute" ]
 	then
-		echo "올바른 형식: $0 [ controller | compute ] <controller-host-name> <nova-password> <rabbitmq-password> <nova-db-password> <mysql-username> <mysql-password>"
+		echo "올바른 구문: $0 [ controller | compute ] <controller-host-name> <nova-password> <rabbitmq-password> <nova-db-password> <mysql-username> <mysql-password>"
 		exit 1;
 fi
 
 if [ "$1" == "controller" ] && [ $# -ne 7 ]
 	then
-		echo "올바른 형식: $0 controller <controller-host-name> <nova-password> <rabbitmq-password> <nova-db-password> <mysql-username> <mysql-password>"
+		echo "올바른 구문: $0 controller <controller-host-name> <nova-password> <rabbitmq-password> <nova-db-password> <mysql-username> <mysql-password>"
 		exit 1;
 fi
 		
 if [ "$1" == "compute" ] && [ $# -ne 4 ]
 	then
-		echo "올바른 형식: $0 compute <controller-host-name> <nova-password> <rabbitmq-password>"
+		echo "올바른 구문: $0 compute <controller-host-name> <nova-password> <rabbitmq-password>"
 		exit 1;
 fi
 		
@@ -70,7 +70,7 @@ crudini --set /etc/nova/nova.conf placement auth_type password
 crudini --set /etc/nova/nova.conf placement user_domain_name Default
 crudini --set /etc/nova/nova.conf placement auth_url http://$2:5000/v3
 crudini --set /etc/nova/nova.conf placement username placement
-crudini --set /etc/nova/nova.conf placement password Passw0rd1
+crudini --set /etc/nova/nova.conf placement password $4
 
 if [ "$1" == "controller" ]
 	then
