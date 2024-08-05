@@ -10,9 +10,9 @@ if [ "$1" == "networknode" ] || [ "$1" == "controller" ]
 then
 	sh -c 'echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf'
 	sleep 1
-    ovs-vsctl add-br br-$data_interface
-    ip addr add $neutron_ovs_bridge_address dev br-$data_interface
-    ip link set dev br-$data_interface up
+    ovs-vsctl add-br br-ex
+    ip addr add $neutron_ovs_bridge_address dev br-ex
+    ip link set dev br-ex up
 fi
 
 if [ "$1" == "networknode" ] || [ "$1" == "compute" ] || [ "$1" == "controller" ] 

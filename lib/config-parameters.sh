@@ -6,7 +6,7 @@ readonly data_interface="eth0"
 
 # Neutron 관련 설정
 readonly neutron_ovs_tenant_network_type="vxlan"
-readonly neutron_ovs_bridge_mappings="extnet:br-$data_interface"
+readonly neutron_ovs_bridge_mappings="extnet:br-ex"
 readonly neutron_ovs_bridge_address="172.24.4.1/24"
 
 readonly mysql_user="root"
