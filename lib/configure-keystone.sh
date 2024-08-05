@@ -24,11 +24,7 @@ echo_and_sleep "Fernet 설정" 1
 keystone-manage fernet_setup --keystone-user keystone --keystone-group keystone
 keystone-manage credential_setup --keystone-user keystone --keystone-group keystone
 
-keystone-manage bootstrap --bootstrap-password $5 \
-  --bootstrap-admin-url http://$4:5000/v3/ \
-  --bootstrap-internal-url http://$4:5000/v3/ \
-  --bootstrap-public-url http://$4:5000/v3/ \
-  --bootstrap-region-id RegionOne
+keystone-manage bootstrap --bootstrap-password $5 --bootstrap-admin-url http://$4:5000/v3/ --bootstrap-internal-url http://$4:5000/v3/ --bootstrap-public-url http://$4:5000/v3/ --bootstrap-region-id RegionOne
 echo_and_sleep "Keystone 부트스트랩 실행 완료" 1
 
 grep -q '^ServerName' /etc/apache2/apache2.conf && sed 's/^ServerName.*/ServerName controller/' -i /etc/apache2/apache2.conf || echo "ServerName controller" >> /etc/apache2/apache2.conf 

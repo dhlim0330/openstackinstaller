@@ -72,7 +72,7 @@ then
 	sed -i "s/127.0.0.1/$1/g" /etc/memcached.conf
 	service memcached restart
 		
-	echo_and_sleep "KeyStone 설정..."
+	echo_and_sleep "Keystone 설정..."
 	bash $(dirname $0)/configure-keystone.sh $keystone_db_password $mysql_user $mysql_password $controller_host_name $admin_tenant_password
 		
 	echo_and_sleep "Glance 설정..."
