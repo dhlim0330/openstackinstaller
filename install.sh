@@ -41,7 +41,7 @@ function install-controller-packages() {
     #Keystone 자동 시작 방지
     #echo "manual" > /etc/init/keystone.override
 	sleep 3
-	apt-get install keystone apache2 libapache2-mod-wsgi-py3 memcached python3-memcache -y
+	apt-get install apache2 libapache2-mod-wsgi-py3 memcached python3-memcache keystone -y
 	
 	echo "Glance 설치..."
 	sleep 2
