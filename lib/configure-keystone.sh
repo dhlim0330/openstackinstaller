@@ -60,6 +60,6 @@ openstack role add --project demo --user demo user
 echo_and_sleep "Demo 테넌트 및 역할 생성 완료" 2
 
 echo_and_sleep "Keystone 서비스 재시작" 2
-source $(dirname $0)/admin_openrc.sh
+source $(dirname $0)/admin-openrc.sh
 echo_and_sleep "Admin OpenRC 소싱 완료"
 print_keystone_service_list

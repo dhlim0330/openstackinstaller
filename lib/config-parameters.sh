@@ -61,7 +61,7 @@ function print_keystone_service_list() {
 }
 
 function configure-keystone-authentication() {
-	echo "Called configure-keystone-authentication with paramters: $@"
+	echo "configure-keystone-authentication 호출, 패러미터: $@"
 	sleep 3
 	crudini --set $1 keystone_authtoken auth_uri http://$2:5000
 	crudini --set $1 keystone_authtoken memcached_servers $2:11211
@@ -74,7 +74,7 @@ function configure-keystone-authentication() {
 }
 
 function configure-oslo-messaging() {
-	echo "Called configure-oslo-messaging with paramters: $@"
+	echo "configure-oslo-messaging 호출, 패러미터: $@"
 	sleep 3
 	crudini --set $1 oslo_messaging_rabbit rabbit_host $2
 	crudini --set $1 oslo_messaging_rabbit rabbit_userid $3
@@ -82,25 +82,25 @@ function configure-oslo-messaging() {
 }
 
 function create-user-service() {
-	echo "Called create-user-service with paramters: $@"
+	echo "create-user-service 호출, 패러미터: $@"
 	sleep 3
 	openstack user create --domain default --password $2 $1
-	echo_and_sleep "Created User $1" 2
+	echo_and_sleep "User $1 생성" 2
 	openstack role add --project service --user $1 admin
-	echo_and_sleep "Created Role $1" 2
+	echo_and_sleep "Role $1 생성" 2
 	openstack service create --name $3 --description $4 $5
-	echo_and_sleep "Created Service $4" 2
+	echo_and_sleep "Service $4 생성" 2
 }
 
 function create-api-endpoints() {
-	echo "Called create-api-endpoints with parameters: $@"
+	echo "create-api-endpoints 패러미터: $@"
 	sleep 5
 	openstack endpoint create --region RegionOne $1 public $2
-	echo_and_sleep "Created public endpoint" 2
+	echo_and_sleep "public 엔드포인트 생성" 2
 	openstack endpoint create --region RegionOne $1 internal $2
-	echo_and_sleep "Created internal endpoint" 2
+	echo_and_sleep "internal 엔드포인트 생성" 2
 	openstack endpoint create --region RegionOne $1 admin $2
-	echo_and_sleep "Created admin endpoint" 2
+	echo_and_sleep "admin 엔드포인트 생성" 2
 }
 
 function get-ip-address() {

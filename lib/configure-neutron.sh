@@ -1,6 +1,6 @@
 echo "실행: $0 $@"
 source $(dirname $0)/config-parameters.sh
-source $(dirname $0)/admin_openrc.sh
+source $(dirname $0)/admin-openrc.sh
 
 if [ "$1" != "compute" -a "$1" != "networknode" -a "$1" != "controller" ]
 	then

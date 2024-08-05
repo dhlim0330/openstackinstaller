@@ -19,7 +19,7 @@ if [ "$1" == "compute" ] && [ $# -ne 4 ]
 		exit 1;
 fi
 		
-source $(dirname $0)/admin_openrc.sh
+source $(dirname $0)/admin-openrc.sh
 
 if [ "$1" == "controller" ]
 	then

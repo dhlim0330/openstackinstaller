@@ -12,7 +12,7 @@ mysql_command="CREATE DATABASE IF NOT EXISTS glance; GRANT ALL PRIVILEGES ON gla
 echo "MySQL 커맨드:: "$mysql_command
 mysql -u "$2" -p"$3" -e "$mysql_command"
 
-source $(dirname $0)/admin_openrc.sh
+source $(dirname $0)/admin-openrc.sh
 echo_and_sleep "Admin OpenRC 소싱 완료"
 
 create-user-service glance $6 glance OpenStackImage image

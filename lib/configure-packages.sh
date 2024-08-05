@@ -85,7 +85,7 @@ elif [ "$1" == "controller" ]
 		bash $(dirname $0)/configure-nova.sh controller $controller_host_name $nova_password $rabbitmq_password $nova_db_password $mysql_user $mysql_password 
 		
 		echo_and_sleep "Neutron 설정..."
-		source $(dirname $0)/admin_openrc.sh
+		source $(dirname $0)/admin-openrc.sh
 		bash $(dirname $0)/configure-neutron.sh controller $controller_host_name $rabbitmq_password $neutron_password $neutron_db_password $mysql_user $mysql_password
 
 		echo_and_sleep "컨트롤러 노드 포워딩 설정"
