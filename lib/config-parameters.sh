@@ -44,11 +44,11 @@ function echo_and_sleep() {
 
 	if [ -z "$1" ]
 		then
-			echo_string=""$sleep_time"초 sleep..."
+			echo_string=""
 		else
 			echo_string=$1
 	fi
-	echo "$echo_string, "$sleep_time"초 sleep..."
+	echo "$echo_string..."
 	sleep $sleep_time
 }
 
