@@ -47,11 +47,3 @@ else
 	echo "노드 타입 오류 $0: $node_type"
 	exit 1;
 fi
-
-if [ "$node_type" == "allinone" ] || [ "$node_type" == "controller" ]
-then
-	echo "************************************"
-	echo "**  다음 단계:                     **"
-	echo "**    post-config-actions.sh 실행  **"
-	echo "************************************"
-fi
