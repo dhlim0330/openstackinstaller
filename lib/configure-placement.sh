@@ -33,7 +33,7 @@ crudini --set /etc/placement/placement.conf placement_store default_store file
 echo_and_sleep "Placement 서비스 데이터베이스 초기화" 
 placement-manage db sync
 
-echo_and_sleep "Placement 서비스 재시작..." 3
+echo_and_sleep "Placement 서비스 재시작..." 1
 service apache2 restart
 
 echo_and_sleep "Placement MySQL-Lite 데이터베이스 삭제" 

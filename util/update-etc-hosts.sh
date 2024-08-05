@@ -17,7 +17,7 @@ function change-ip-in-etc-hosts() {
 	echo "$2        $1" >> $hosts_file_name
 	echo "업데이트 후 $hosts_file_name 내용..."
 	grep -w " $1" $hosts_file_name
-	sleep 2
+	sleep 1
 }
 
 function get-ip-address() {
@@ -39,7 +39,7 @@ echo "로컬 호스트 IP: $local_ip_address"
 
 local_host_name=`hostname`
 echo "로컬 호스트 이름: $local_host_name"
-sleep 2
+sleep 1
 
 if [ "$node_type" == "controller" ] || [ "$node_type" == "allinone" ]
 then

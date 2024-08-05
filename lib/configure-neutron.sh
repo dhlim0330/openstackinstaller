@@ -30,12 +30,12 @@ mysql_command="CREATE DATABASE IF NOT EXISTS neutron; GRANT ALL PRIVILEGES ON ne
 		
 		create-api-endpoints network http://$2:9696
 		
-		echo_and_sleep "Neutron 엔드포인트 생성 완료, Neutron Conf 파일 수정" 2
+		echo_and_sleep "Neutron 엔드포인트 생성 완료, Neutron Conf 파일 수정" 1
 		crudini --set /etc/neutron/neutron.conf database connection mysql+pymysql://neutron:$5@$2/neutron
 
-		echo_and_sleep "Configuring Neutron Conf File" 2
+		echo_and_sleep "Configuring Neutron Conf File" 1
 		crudini --set /etc/neutron/neutron.conf DEFAULT core_plugin ml2
-		crudini --set /etc/neutron/neutron.conf DEFAULT service_plugins router,firewall
+		crudini --set /etc/neutron/neutron.conf DEFAULT service_plugins router
 		crudini --set /etc/neutron/neutron.conf DEFAULT allow_overlapping_ips True
 fi
 
@@ -78,15 +78,15 @@ if [ "$1" == "networknode" -o "$1" == "controller" ]
 		crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini securitygroup enable_security_group True
 		crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini securitygroup firewall_driver openvswitch
 
-		echo_and_sleep "L3 Agent 설정" 2
+		echo_and_sleep "L3 Agent 설정" 1
 		crudini --set /etc/neutron/l3_agent.ini DEFAULT interface_driver openvswitch
 		
-		echo_and_sleep "DHCP Agent 설정" 2
+		echo_and_sleep "DHCP Agent 설정" 1
 		crudini --set /etc/neutron/dhcp_agent.ini DEFAULT interface_driver openvswitch
 		crudini --set /etc/neutron/dhcp_agent.ini DEFAULT dhcp_driver neutron.agent.linux.dhcp.Dnsmasq
 		crudini --set /etc/neutron/dhcp_agent.ini DEFAULT enabled_isolated_metadata True
 		
-		echo_and_sleep "Metadata Agent 설정" 2
+		echo_and_sleep "Metadata Agent 설정" 1
 		crudini --set /etc/neutron/metadata_agent.ini DEFAULT nova_metadata_host $1
 		crudini --set /etc/neutron/metadata_agent.ini DEFAULT metadata_proxy_shared_secret $3
 fi
@@ -135,7 +135,7 @@ if [ "$1" == "controller" ]
 		service nova-conductor restart
 		print_keystone_service_list
 		openstack network agent list
-		echo_and_sleep "Neutron Agent 리스트 출력" 2
+		echo_and_sleep "Neutron Agent 리스트 출력" 1
 		rm -f /var/lib/neutron/neutron.sqlite
 elif [ "$1" == "compute" ]
 	then

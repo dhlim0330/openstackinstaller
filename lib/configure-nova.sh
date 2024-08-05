@@ -41,11 +41,11 @@ if [ "$1" == "controller" ]
 		create-user-service nova $3 nova OpenStackCompute compute
 		
 		create-api-endpoints compute http://$2:8774/v2.1
-		echo_and_sleep "Nova 엔드포인트 생성 완료" 2
+		echo_and_sleep "Nova 엔드포인트 생성 완료" 1
 		
 		crudini --set /etc/nova/nova.conf api_database connection mysql+pymysql://nova:$5@$2/nova_api
 		crudini --set /etc/nova/nova.conf database connection mysql+pymysql://nova:$5@$2/nova
-		echo_and_sleep "Nova DB 연결 완료" 2
+		echo_and_sleep "Nova DB 연결 완료" 1
 
 fi
 
@@ -78,7 +78,7 @@ if [ "$1" == "controller" ]
 elif [ "$1" == "compute" ]
 	then
 		controller_ip=`getent hosts $2 | awk '{ print $1 }'`
-		echo_and_sleep "컨트롤러 노드 IP: $controller_ip" 2
+		echo_and_sleep "컨트롤러 노드 IP: $controller_ip" 1
 		crudini --set /etc/nova/nova.conf vnc enabled True
 		crudini --set /etc/nova/nova.conf vnc server_listen 0.0.0.0
 		crudini --set /etc/nova/nova.conf vnc novncproxy_base_url http://$controller_ip:6080/vnc_auto.html
@@ -88,18 +88,18 @@ fi
 
 crudini --set /etc/nova/nova.conf glance api_servers http://$2:9292
 crudini --set /etc/nova/nova.conf oslo_concurrency lock_path /var/lib/nova/tmp
-echo_and_sleep "Nova 설정 파일 업데이트 완료" 2
+echo_and_sleep "Nova 설정 파일 업데이트 완료" 1
 
 if [ "$1" == "controller" ]
 	then
 		echo_and_sleep "Nova 데이터베이스 초기화" 1
 		nova-manage api_db sync
-		echo_and_sleep "Nova Cells 매핑" 2
+		echo_and_sleep "Nova Cells 매핑" 1
 		nova-manage cell_v2 map_cell0
-		echo_and_sleep "Cell 생성" 2
+		echo_and_sleep "Cell 생성" 1
 		nova-manage cell_v2 create_cell --name=cell1 --verbose
 		nova-manage db sync
-		echo_and_sleep "Nova 서비스 재시작" 2
+		echo_and_sleep "Nova 서비스 재시작" 1
 		service nova-api restart
 		service nova-scheduler restart
 		service nova-conductor restart
@@ -110,7 +110,7 @@ elif [ "$1" == "compute" ]
 		service nova-compute restart
 fi
 
-echo_and_sleep "Nova MySQL-Lite 데이터베이스 삭제" 2
+echo_and_sleep "Nova MySQL-Lite 데이터베이스 삭제" 1
 rm -f /var/lib/nova/nova.sqlite
 
 if [ "$1" == "controller" ]

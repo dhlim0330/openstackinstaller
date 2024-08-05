@@ -37,7 +37,7 @@ readonly cinder_db_password="Passw0rd1"
 function echo_and_sleep() {
 	if [ -z "$2" ]
 		then
-			sleep_time=2
+			sleep_time=1
 		else
 			sleep_time=$2
 	fi
@@ -53,11 +53,11 @@ function echo_and_sleep() {
 }
 
 function print_keystone_service_list() {
-	echo_and_sleep "Keystone 서비스 리스트 출력" 2
+	echo_and_sleep "Keystone 서비스 리스트 출력" 1
 	openstack service list --long
-	echo_and_sleep "OpenStack 카탈로그 리스트 출력" 2
+	echo_and_sleep "OpenStack 카탈로그 리스트 출력" 1
 	openstack catalog list
-	echo_and_sleep "카탈로그 리스트 출력 완료" 2
+	echo_and_sleep "카탈로그 리스트 출력 완료" 1
 }
 
 function configure-keystone-authentication() {
@@ -86,22 +86,22 @@ function create-user-service() {
 	echo "create-user-service 호출, 패러미터: $@"
 	sleep 3
 	openstack user create --domain default --password $2 $1
-	echo_and_sleep "User $1 생성" 2
+	echo_and_sleep "User $1 생성" 1
 	openstack role add --project service --user $1 admin
-	echo_and_sleep "Role $1 생성" 2
+	echo_and_sleep "Role $1 생성" 1
 	openstack service create --name $3 --description $4 $5
-	echo_and_sleep "Service $4 생성" 2
+	echo_and_sleep "Service $4 생성" 1
 }
 
 function create-api-endpoints() {
 	echo "create-api-endpoints 패러미터: $@"
 	sleep 5
 	openstack endpoint create --region RegionOne $1 public $2
-	echo_and_sleep "public 엔드포인트 생성" 2
+	echo_and_sleep "public 엔드포인트 생성" 1
 	openstack endpoint create --region RegionOne $1 internal $2
-	echo_and_sleep "internal 엔드포인트 생성" 2
+	echo_and_sleep "internal 엔드포인트 생성" 1
 	openstack endpoint create --region RegionOne $1 admin $2
-	echo_and_sleep "admin 엔드포인트 생성" 2
+	echo_and_sleep "admin 엔드포인트 생성" 1
 }
 
 function get-ip-address() {

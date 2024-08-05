@@ -7,9 +7,7 @@ echo "관리 인터페이스: "$mgmt_interface
 echo "데이터 인터페이스: "$data_interface
 echo "컨트롤러 호스트 이름: "$controller_host_name
 
-bash $dir_path/util/backup-restore-config-files.sh backup $dir_path/config_file_backup/
-echo "설정 파일 백업 완료"
-sleep 2
+sleep 1
 
 if [ $# -ne 1 ]
 then
@@ -20,30 +18,30 @@ fi
 if [ "$node_type" == "allinone" ] || [ "$node_type" == "controller" ] 
 then
 	echo "/etc/hosts 업데이트 (컨트롤러 노드)"
-	sleep 2
+	sleep 1
 	bash $dir_path/util/update-etc-hosts.sh $mgmt_interface $controller_host_name
 else
 	echo "/etc/hosts 업데이트 (비 컨트롤러 노드)"
-	sleep 2
+	sleep 1
 	bash $dir_path/util/update-etc-hosts.sh $mgmt_interface $controller_host_name $1
 fi
 
 if [ "$node_type" == "allinone" ]
 	then
 		echo "패키지 설정: All-in-one"
-		sleep 2
+		sleep 1
 		bash $dir_path/lib/configure-packages.sh controller $1
 		bash $dir_path/lib/configure-packages.sh networknode
 		bash $dir_path/lib/configure-packages.sh compute 
 elif [ "$node_type" == "compute" ] || [ "$node_type" == "networknode" ]
 	then
 		echo "패키지 설정: "$node_type
-		sleep 2
+		sleep 1
 		bash $dir_path/lib/configure-packages.sh $node_type 
 elif [ "$node_type" == "controller" ] || [ "$node_type" == "controller_networknode" ]
 	then
 		echo "패키지 설정: controller and network"
-		sleep 2
+		sleep 1
 		bash $dir_path/lib/configure-packages.sh controller $1
 else
 	echo "노드 타입 오류 $0: $node_type"
