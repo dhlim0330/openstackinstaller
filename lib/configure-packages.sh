@@ -75,7 +75,7 @@ then
 	bash $(dirname $0)/configure-keystone.sh $controller_host_name $keystone_db_password $mysql_user $mysql_password $admin_tenant_password
 		
 	echo_and_sleep "Glance 설정..."
-	bash $(dirname $0)/configure-glance.sh $controller_host_name $glance_db_password $mysql_user $mysql_password $glance_password
+	bash $(dirname $0)/configure-glance.sh $controller_host_name $glance_db_password $mysql_user $mysql_password $admin_tenant_password $glance_password
 
 	echo_and_sleep "Placement 설정..."
 	bash $(dirname $0)/configure-placement.sh $controller_host_name $placement_db_password $mysql_user $mysql_password $placement_password
@@ -88,7 +88,7 @@ then
 	
 	echo_and_sleep "Cinder 설정..."
 	bash $(dirname $0)/configure-cinder.sh $controller_host_name $rabbitmq_password $cinder_password $cinder_db_password $mysql_user $mysql_password
-	
+
 	echo_and_sleep "컨트롤러 노드 포워딩 설정"
 	bash $(dirname $0)/configure-forwarding.sh controller
 		
