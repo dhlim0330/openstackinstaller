@@ -34,8 +34,7 @@ function configure-mysql-controller() {
     echo_and_sleep "기타 MySQL 패러미터 설정 완료, MySQL 재시작" 1
 
     service mysql restart;
-    sleep 2
-
+    sleep 1
 }
 
 metering_secret="Passw0rd1"
@@ -73,21 +72,23 @@ then
 	service memcached restart
 		
 	echo_and_sleep "Keystone 설정..."
-	bash $(dirname $0)/configure-keystone.sh $keystone_db_password $mysql_user $mysql_password $controller_host_name $admin_tenant_password
+	bash $(dirname $0)/configure-keystone.sh $controller_host_name $keystone_db_password $mysql_user $mysql_password $admin_tenant_password
 		
 	echo_and_sleep "Glance 설정..."
-	bash $(dirname $0)/configure-glance.sh $glance_db_password $mysql_user $mysql_password $controller_host_name $admin_tenant_password $glance_password
+	bash $(dirname $0)/configure-glance.sh $controller_host_name $glance_db_password $mysql_user $mysql_password $glance_password
 
 	echo_and_sleep "Placement 설정..."
-	bash $(dirname $0)/configure-placement.sh $placement_db_password $mysql_user $mysql_password $controller_host_name $admin_tenant_password $placement_password
+	bash $(dirname $0)/configure-placement.sh $controller_host_name $placement_db_password $mysql_user $mysql_password $placement_password
 		
 	echo_and_sleep "Nova 설정..."
 	bash $(dirname $0)/configure-nova.sh controller $controller_host_name $nova_password $rabbitmq_password $nova_db_password $mysql_user $mysql_password 
 		
 	echo_and_sleep "Neutron 설정..."
-	source $(dirname $0)/admin-openrc.sh
 	bash $(dirname $0)/configure-neutron.sh controller $controller_host_name $rabbitmq_password $neutron_password $neutron_db_password $mysql_user $mysql_password
-
+	
+	echo_and_sleep "Cinder 설정..."
+	bash $(dirname $0)/configure-cinder.sh $controller_host_name $rabbitmq_password $cinder_password $cinder_db_password $mysql_user $mysql_password
+	
 	echo_and_sleep "컨트롤러 노드 포워딩 설정"
 	bash $(dirname $0)/configure-forwarding.sh controller
 		

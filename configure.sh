@@ -27,31 +27,31 @@ else
 fi
 
 if [ "$node_type" == "allinone" ]
-	then
-		echo "패키지 설정: All-in-one"
-		sleep 1
-		bash $dir_path/lib/configure-packages.sh controller $1
-		bash $dir_path/lib/configure-packages.sh networknode
-		bash $dir_path/lib/configure-packages.sh compute 
+then
+	echo "패키지 설정: All-in-one"
+	sleep 1
+	bash $dir_path/lib/configure-packages.sh controller $1
+	bash $dir_path/lib/configure-packages.sh networknode
+	bash $dir_path/lib/configure-packages.sh compute 
 elif [ "$node_type" == "compute" ] || [ "$node_type" == "networknode" ]
-	then
-		echo "패키지 설정: "$node_type
-		sleep 1
-		bash $dir_path/lib/configure-packages.sh $node_type 
+then
+	echo "패키지 설정: "$node_type
+	sleep 1
+	bash $dir_path/lib/configure-packages.sh $node_type 
 elif [ "$node_type" == "controller" ] || [ "$node_type" == "controller_networknode" ]
-	then
-		echo "패키지 설정: controller and network"
-		sleep 1
-		bash $dir_path/lib/configure-packages.sh controller $1
+then
+	echo "패키지 설정: controller and network"
+	sleep 1
+	bash $dir_path/lib/configure-packages.sh controller $1
 else
 	echo "노드 타입 오류 $0: $node_type"
 	exit 1;
 fi
 
 if [ "$node_type" == "allinone" ] || [ "$node_type" == "controller" ]
-	then
-		echo "************************************"
-		echo "**  다음 단계:                     **"
-		echo "**    post-config-actions.sh 실행  **"
-		echo "************************************"
+then
+	echo "************************************"
+	echo "**  다음 단계:                     **"
+	echo "**    post-config-actions.sh 실행  **"
+	echo "************************************"
 fi

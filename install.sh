@@ -93,25 +93,25 @@ function install-compute-packages() {
 }
 
 if [ $# -ne 1 ]
-	then
-		echo "올바른 형식: $0 [ allinone | controller | compute | networknode ] "
-		exit 1;
+then
+    echo "올바른 형식: $0 [ allinone | controller | compute | networknode ] "
+    exit 1;
 fi
 
 if [ "$1" == "allinone" ]
-	then
-		echo "패키지 설치: All-in-One..."
-		sleep 1
-		install-common-packages
-		install-controller-packages
-		install-compute-packages
-		install-networknode-packages
+then
+    echo "패키지 설치: All-in-One..."
+    sleep 1
+    install-common-packages
+    install-controller-packages
+    install-compute-packages
+    install-networknode-packages
 elif [ "$1" == "controller" ] || [ "$1" == "compute" ] || [ "$1" == "networknode" ]
-	then
-		install-common-packages
-		echo "패키지 설치: "$1
-		sleep 1
-		install-$1-packages
+then
+    install-common-packages
+    echo "패키지 설치: "$1
+    sleep 1
+    install-$1-packages
 else
 	echo "올바른 형식: $0 [ allinone | controller | compute | networknode ]"
 	exit 1;

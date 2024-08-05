@@ -36,17 +36,17 @@ readonly cinder_db_password="Passw0rd1"
 
 function echo_and_sleep() {
 	if [ -z "$2" ]
-		then
-			sleep_time=1
-		else
-			sleep_time=$2
+	then
+		sleep_time=1
+	else
+		sleep_time=$2
 	fi
 
 	if [ -z "$1" ]
-		then
-			echo_string=""
-		else
-			echo_string=$1
+	then
+		echo_string=""
+	else
+		echo_string=$1
 	fi
 	echo "$echo_string..."
 	sleep $sleep_time
@@ -105,7 +105,7 @@ function create-api-endpoints() {
 }
 
 function get-ip-address() {
-        ip_address_val=''
-        ip_address_val=`ifconfig $1 | grep 'inet ' | cut -d' ' -f10 | awk '{ print $1}'`
-        echo $ip_address_val
+	ip_address_val=''
+	ip_address_val=`ifconfig $1 | grep 'inet ' | cut -d' ' -f10 | awk '{ print $1}'`
+	echo $ip_address_val
 }

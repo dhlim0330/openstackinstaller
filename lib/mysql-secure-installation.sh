@@ -1,9 +1,9 @@
 echo "실행: $0 $@"
 source $(dirname $0)/config-parameters.sh
 if [ $# -lt 2 ]
-	then
-		echo "올바른 구문: $0 <mysql-username> <mysql-password>"
-		exit 1
+then
+	echo "올바른 구문: $0 <mysql-username> <mysql-password>"
+	exit 1
 fi
 echo_and_sleep "MySQL 패스워드 설정: $1" 1
 mysqladmin -u $1 password $2
