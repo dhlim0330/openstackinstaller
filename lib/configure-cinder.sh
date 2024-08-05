@@ -17,7 +17,7 @@ echo_and_sleep "Admin OpenRC 소싱 완료"
 
 create-user-service cinder $3 cinder OpenStackVolume volume
 
-create-api-endpoints cinder http://$1:8776/v3/%\(project_id\)s
+create-api-endpoints volume http://$1:8776/v3/%\(project_id\)s
 echo_and_sleep "Cinder 서비스 엔드포인트 생성 완료"
 
 echo "Cinder 설정..."

@@ -97,10 +97,10 @@ then
 
 elif [ "$1" == "networknode" ]
 then
-	echo_and_sleep "About to configure Network Node"
+	echo_and_sleep "네트워크 노드 설정"
 	bash $(dirname $0)/configure-forwarding.sh networknode
 
-	echo_and_sleep "About to configure Neutron for Network Node" 1
+	echo_and_sleep "Neutron 설정 (네트워크 노드)" 1
 	bash $(dirname $0)/configure-neutron.sh networknode $controller_host_name $rabbitmq_password $neutron_password
 else
     echo "올바른 구문 1: $0 controller <controller_ip_address>"
