@@ -62,7 +62,7 @@ then
 	crudini --set /etc/neutron/neutron.conf nova username nova
 	crudini --set /etc/neutron/neutron.conf nova password $4
 
-	echo_and_sleep "ML2 ini 파일 수정"
+	echo_and_sleep "ML2 Conf ini 파일 수정"
 	crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 type_drivers flat,vlan,vxlan
 	crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 tenant_network_types vxlan
 	crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 mechanism_drivers openvswitch,l2population
