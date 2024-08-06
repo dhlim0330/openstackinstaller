@@ -38,7 +38,6 @@ echo_and_sleep "Image 서비스 데이터베이스 초기화"
 glance-manage db_sync
 
 echo_and_sleep "Glance 서비스 재시작..." 3
-service glance-registry restart
 service glance-api restart
 
 echo_and_sleep "Glance MySQL-Lite 데이터베이스 삭제" 

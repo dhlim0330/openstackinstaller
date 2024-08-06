@@ -73,8 +73,8 @@ then
 	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini agent tunnel_types vxlan
 	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini agent l2_population True
 	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini ovs bridge_mappings $neutron_ovs_bridge_mappings
-	data_interface_ip=$(get-ip-address $data_interface)
-	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini ovs local_ip $data_interface_ip
+	mgmt_interface_ip=$(get-ip-address $mgmt_interface)
+	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini ovs local_ip $mgmt_interface_ip
 	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini securitygroup enable_security_group True
 	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini securitygroup firewall_driver openvswitch
 
@@ -121,6 +121,10 @@ fi
 		
 if [ "$1" == "controller" ]
 then
+    ovs-vsctl add-br br-ex
+    ip addr add $neutron_ovs_bridge_address dev br-ex
+    ip link set dev br-ex up
+
 	echo_and_sleep "ML2 보안 그룹 설정 완료. Neutron DB 업그레이드..."
 	neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head
 	echo_and_sleep "서비스 재시작..."

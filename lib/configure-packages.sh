@@ -85,12 +85,13 @@ then
 		
 	echo_and_sleep "Neutron 설정..."
 	bash $(dirname $0)/configure-neutron.sh controller $controller_host_name $rabbitmq_password $neutron_password $neutron_db_password $mysql_user $mysql_password
+
+	echo_and_sleep "컨트롤러 노드 포워딩 설정"
+	bash $(dirname $0)/configure-forwarding.sh controller
 	
 	echo_and_sleep "Cinder 설정..."
 	bash $(dirname $0)/configure-cinder.sh $controller_host_name $rabbitmq_password $cinder_password $cinder_db_password $mysql_user $mysql_password
 
-	echo_and_sleep "컨트롤러 노드 포워딩 설정"
-	bash $(dirname $0)/configure-forwarding.sh controller
 		
 	echo_and_sleep "Horizon-Dashboard 설정"
 	bash $(dirname $0)/configure-horizon.sh $controller_host_name
