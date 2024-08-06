@@ -37,6 +37,7 @@ then
 	crudini --set /etc/neutron/neutron.conf DEFAULT core_plugin ml2
 	crudini --set /etc/neutron/neutron.conf DEFAULT service_plugins router
 	crudini --set /etc/neutron/neutron.conf DEFAULT allow_overlapping_ips True
+	crudini --set /etc/neutron/neutron.conf oslo_concurrency lock_path /var/lib/neutron/tmp
 fi
 
 echo_and_sleep "RabbitMQ config changed for Newton" 1
