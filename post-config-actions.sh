@@ -41,7 +41,7 @@ then
         sleep 1
         echo "라우터 생성..."
         openstack router create ext-router
-        openstack router set ext-router --external-gateway ext-subnet
+        openstack router set ext-router --external-gateway external-net
         sleep 1
         echo "라우터 연결..."
         openstack router add subnet ext-router private-subnet
