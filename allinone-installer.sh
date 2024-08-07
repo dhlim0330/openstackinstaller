@@ -13,7 +13,7 @@ bash $dir_path/install.sh allinone
 sleep 1
 bash $dir_path/configure.sh $1
 sleep 1
-bash $dir_path/post-config-actions.sh allinone
+bash $dir_path/post-config-actions.sh
 sleep 1
 
 echo "******************************************"

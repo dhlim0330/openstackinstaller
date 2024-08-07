@@ -9,6 +9,7 @@ then
     #read enable_web_log_view
     #if [ "$enable_web_log_view" == "y" ]
     #then
+        echo "웹 로그 활성화"
         mkdir /var/www/html/oslogs
         chmod a+rx /var/log/nova
         chmod a+rx /var/log/neutron
