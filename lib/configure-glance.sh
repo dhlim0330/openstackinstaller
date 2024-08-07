@@ -9,7 +9,7 @@ fi
 
 echo_and_sleep "MySQL 설정 (Glance)"
 mysql_command="CREATE DATABASE IF NOT EXISTS glance; GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'localhost' IDENTIFIED BY '$2'; GRANT ALL PRIVILEGES ON glance.* TO 'glance'@'%' IDENTIFIED BY '$2';"
-echo_and_sleep "MySQL 커맨드:: "$mysql_command
+echo "MySQL 커맨드:: "$mysql_command
 mysql -u "$3" -p"$4" -e "$mysql_command"
 
 echo_and_sleep "source admin-openrc.sh"

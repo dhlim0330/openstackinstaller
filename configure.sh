@@ -11,7 +11,7 @@ sleep 1
 
 if [ $# -ne 1 ]
 then
-       	echo "올바른 형식: $0 <controller-ip>"
+    echo "올바른 형식: $0 <controller-ip>"
 	exit 1
 fi
 

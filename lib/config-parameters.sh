@@ -1,5 +1,6 @@
 controller_host_name="controller"
 
+
 # NIC 인터페이스 설정
 readonly mgmt_interface="eth1"
 readonly data_interface="eth0"
@@ -75,7 +76,7 @@ function configure-keystone-authentication() {
 
 function configure-oslo-messaging() {
 	echo "configure-oslo-messaging 호출, 패러미터: $@"
-	sleep 3
+	sleep 1
 	crudini --set $1 oslo_messaging_rabbit rabbit_host $2
 	crudini --set $1 oslo_messaging_rabbit rabbit_userid $3
 	crudini --set $1 oslo_messaging_rabbit rabbit_password $4
@@ -83,7 +84,7 @@ function configure-oslo-messaging() {
 
 function create-user-service() {
 	echo "create-user-service 호출, 패러미터: $@"
-	sleep 3
+	sleep 1
 	openstack user create --domain default --password $2 $1
 	echo_and_sleep "User $1 생성" 1
 	openstack role add --project service --user $1 admin
@@ -94,13 +95,13 @@ function create-user-service() {
 
 function create-api-endpoints() {
 	echo "create-api-endpoints 패러미터: $@"
-	sleep 5
-	openstack endpoint create --region RegionOne $1 public $2
+	sleep 1
 	echo_and_sleep "public 엔드포인트 생성" 1
-	openstack endpoint create --region RegionOne $1 internal $2
+	openstack endpoint create --region RegionOne $1 public $2
 	echo_and_sleep "internal 엔드포인트 생성" 1
-	openstack endpoint create --region RegionOne $1 admin $2
+	openstack endpoint create --region RegionOne $1 internal $2
 	echo_and_sleep "admin 엔드포인트 생성" 1
+	openstack endpoint create --region RegionOne $1 admin $2
 }
 
 function get-ip-address() {

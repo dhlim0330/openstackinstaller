@@ -9,7 +9,7 @@ fi
 
 echo_and_sleep "MySQL 설정 (Cinder)"
 mysql_command="CREATE DATABASE IF NOT EXISTS cinder; GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'localhost' IDENTIFIED BY '$4'; GRANT ALL PRIVILEGES ON cinder.* TO 'cinder'@'%' IDENTIFIED BY '$4';"
-echo_and_sleep "MySQL 커맨드:: "$mysql_command
+echo "MySQL 커맨드:: "$mysql_command
 mysql -u "$5" -p"$6" -e "$mysql_command"
 
 echo_and_sleep "source admin-openrc.sh"

@@ -23,7 +23,7 @@ if [ "$1" == "controller" ]
 then
 	echo_and_sleep "MySQL 설정 (Neutron)"
 	mysql_command="CREATE DATABASE IF NOT EXISTS neutron; GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'localhost' IDENTIFIED BY '$5'; GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY '$5';"
-	echo_and_sleep "MySQL Command is:: "$mysql_command
+	echo "MySQL Command is:: "$mysql_command
 	mysql -u "$6" -p"$7" -e "$mysql_command"
 
 	create-user-service neutron $4 neutron OpenStackNetworking network
