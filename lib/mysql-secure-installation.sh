@@ -16,5 +16,5 @@ DROP DATABASE IF EXISTS test;
 DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
 FLUSH PRIVILEGES;
 _EOF_
-echo_and_sleep "MySQL 서비스 재시작..." 1
+echo_and_sleep "MySQL 서비스 재시작" 1
 service mysql restart

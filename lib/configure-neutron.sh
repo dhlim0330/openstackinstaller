@@ -21,9 +21,9 @@ fi
 
 if [ "$1" == "controller" ]
 then
-	echo "MySQL 설정 (Neutron)..."
+	echo_and_sleep "MySQL 설정 (Neutron)"
 	mysql_command="CREATE DATABASE IF NOT EXISTS neutron; GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'localhost' IDENTIFIED BY '$5'; GRANT ALL PRIVILEGES ON neutron.* TO 'neutron'@'%' IDENTIFIED BY '$5';"
-	echo "MySQL Command is:: "$mysql_command
+	echo_and_sleep "MySQL Command is:: "$mysql_command
 	mysql -u "$6" -p"$7" -e "$mysql_command"
 
 	create-user-service neutron $4 neutron OpenStackNetworking network
@@ -33,14 +33,14 @@ then
 	echo_and_sleep "Neutron 엔드포인트 생성 완료, Neutron Conf 파일 수정" 1
 	crudini --set /etc/neutron/neutron.conf database connection mysql+pymysql://neutron:$5@$2/neutron
 
-	echo_and_sleep "Configuring Neutron Conf File" 1
+	echo_and_sleep "Neutron Conf 설정" 1
 	crudini --set /etc/neutron/neutron.conf DEFAULT core_plugin ml2
 	crudini --set /etc/neutron/neutron.conf DEFAULT service_plugins router
 	crudini --set /etc/neutron/neutron.conf DEFAULT allow_overlapping_ips True
 	crudini --set /etc/neutron/neutron.conf oslo_concurrency lock_path /var/lib/neutron/tmp
 fi
 
-echo_and_sleep "RabbitMQ config changed for Newton" 1
+echo_and_sleep "RabbitMQ 설정" 1
 crudini --set /etc/neutron/neutron.conf DEFAULT transport_url rabbit://openstack:$3@$2
 
 crudini --set /etc/neutron/neutron.conf DEFAULT auth_strategy keystone
@@ -126,7 +126,7 @@ then
     ip addr add $neutron_ovs_bridge_address dev br-ex
     ip link set dev br-ex up
 
-	echo_and_sleep "ML2 보안 그룹 설정 완료. Neutron DB 업그레이드..."
+	echo_and_sleep "ML2 보안 그룹 설정 완료. Neutron DB 업그레이드"
 	neutron-db-manage --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugins/ml2/ml2_conf.ini upgrade head
 	echo_and_sleep "서비스 재시작..."
 	service nova-api restart

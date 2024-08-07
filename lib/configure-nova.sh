@@ -23,32 +23,32 @@ source $(dirname $0)/admin-openrc.sh
 
 if [ "$1" == "controller" ]
 then
-	echo "MySQL 설정: Nova API..."
+	echo_and_sleep "MySQL 설정: Nova API"
 	mysql_command="CREATE DATABASE IF NOT EXISTS nova_api; GRANT ALL PRIVILEGES ON nova_api.* TO 'nova'@'localhost' IDENTIFIED BY '$5'; GRANT ALL PRIVILEGES ON nova_api.* TO 'nova'@'%' IDENTIFIED BY '$5';"
 	echo "MySQL 커맨드:: "$mysql_command
 	mysql -u "$6" -p"$7" -e "$mysql_command"
 	
-	echo "MySQL 설정: Nova..."
+	echo_and_sleep "MySQL 설정: Nova"
 	mysql_command="CREATE DATABASE IF NOT EXISTS nova; GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'localhost' IDENTIFIED BY '$5'; GRANT ALL PRIVILEGES ON nova.* TO 'nova'@'%' IDENTIFIED BY '$5';"
 	echo "MySQL 커맨드:: "$mysql_command
 	mysql -u "$6" -p"$7" -e "$mysql_command"
 	
-	echo_and_sleep "MySQL 설정: Nova Cells..." 2
+	echo_and_sleep "MySQL 설정: Nova Cells" 2
 	mysql_command="CREATE DATABASE IF NOT EXISTS nova_cell0; GRANT ALL PRIVILEGES ON nova_cell0.* TO 'nova'@'localhost' IDENTIFIED BY '$5'; GRANT ALL PRIVILEGES ON nova_cell0.* TO 'nova'@'%' IDENTIFIED BY '$5';"
 	echo "MySQL 커맨드:: "$mysql_command 
 	mysql -u "$6" -p"$7" -e "$mysql_command"
 
 	create-user-service nova $3 nova OpenStackCompute compute
 	
+	echo_and_sleep "Nova 엔드포인트 생성" 1
 	create-api-endpoints compute http://$2:8774/v2.1
-	echo_and_sleep "Nova 엔드포인트 생성 완료" 1
 	
+	echo_and_sleep "Nova DB 연결" 1
 	crudini --set /etc/nova/nova.conf api_database connection mysql+pymysql://nova:$5@$2/nova_api
 	crudini --set /etc/nova/nova.conf database connection mysql+pymysql://nova:$5@$2/nova
-	echo_and_sleep "Nova DB 연결 완료" 1
 fi
 
-echo_and_sleep "Nova 설정 파일 업데이트" 1
+echo_and_sleep "Nova Conf 설정" 1
 crudini --set /etc/nova/nova.conf DEFAULT transport_url rabbit://openstack:$4@$2
 crudini --set /etc/nova/nova.conf api auth_strategy keystone
 configure-keystone-authentication /etc/nova/nova.conf $2 nova $3
@@ -87,16 +87,16 @@ fi
 
 crudini --set /etc/nova/nova.conf glance api_servers http://$2:9292
 crudini --set /etc/nova/nova.conf oslo_concurrency lock_path /var/lib/nova/tmp
-echo_and_sleep "Nova 설정 파일 업데이트 완료" 1
 
 if [ "$1" == "controller" ]
 then
-	echo_and_sleep "Nova 데이터베이스 초기화" 1
+	echo_and_sleep "Nova DB 초기화" 1
 	nova-manage api_db sync
 	echo_and_sleep "Nova Cells 매핑" 1
 	nova-manage cell_v2 map_cell0
 	echo_and_sleep "Cell 생성" 1
 	nova-manage cell_v2 create_cell --name=cell1 --verbose
+	echo_and_sleep "DB 업그레이드" 1
 	nova-manage db sync
 	echo_and_sleep "Nova 서비스 재시작" 1
 	service nova-api restart
@@ -109,7 +109,7 @@ elif [ "$1" == "compute" ]
 		service nova-compute restart
 fi
 
-echo_and_sleep "Nova MySQL-Lite 데이터베이스 삭제" 1
+echo_and_sleep "Nova MySQL-Lite DB 삭제" 1
 rm -f /var/lib/nova/nova.sqlite
 
 if [ "$1" == "controller" ]

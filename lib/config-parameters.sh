@@ -57,7 +57,6 @@ function print_keystone_service_list() {
 	openstack service list --long
 	echo_and_sleep "OpenStack 카탈로그 리스트 출력" 1
 	openstack catalog list
-	echo_and_sleep "카탈로그 리스트 출력 완료" 1
 }
 
 function configure-keystone-authentication() {
