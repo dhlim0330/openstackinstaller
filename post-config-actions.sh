@@ -31,7 +31,7 @@ then
         openstack network create --share --external --provider-physical-network extnet --provider-network-type flat external-net
         sleep 1
         echo "외부 네트워크 서브넷 생성..."
-        openstack subnet create --network external --allocation-pool start=172.24.4.2,end=172.24.4.254 --dns-nameserver 8.8.8.8 --gateway 172.24.4.1 --subnet-range 172.24.4.0/24 ext-subnet
+        openstack subnet create --network external-net --allocation-pool start=172.24.4.2,end=172.24.4.254 --dns-nameserver 8.8.8.8 --gateway 172.24.4.1 --subnet-range 172.24.4.0/24 ext-subnet
         sleep 1
         echo "내부 네트워크 생성..."
         openstack network create private-net
@@ -40,8 +40,8 @@ then
         openstack subnet create --network private-net --dns-nameserver 8.8.8.8 --gateway 10.0.0.1 --subnet-range 10.0.0.0/24 private-subnet
         sleep 1
         echo "라우터 생성..."
-        openstack router create router
-        openstack router set router --external-gateway ext-router
+        openstack router create ext-router
+        openstack router set ext-router --external-gateway ext-subnet
         sleep 1
         echo "라우터 연결..."
         openstack router add subnet ext-router private-subnet
