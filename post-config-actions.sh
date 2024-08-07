@@ -25,7 +25,7 @@ then
     read setup_openstack_network
     if [ "$setup_openstack_network" == "y" ]
     then
-        source $dir_path/lib/admin_openrc.sh
+        source $dir_path/lib/admin-openrc.sh
         echo "외부 네트워크 생성..."
         openstack network create --share --external --provider-physical-network external --provider-network-type flat external
         sleep 1
