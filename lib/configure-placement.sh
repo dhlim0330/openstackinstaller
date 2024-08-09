@@ -21,14 +21,11 @@ echo_and_sleep "Placement 서비스 엔드포인트 생성"
 create-api-endpoints placement http://$1:8778
 
 echo_and_sleep "Placement 설정"
-crudini --set /etc/placement/placement.conf placement_database connection mysql+pymysql://placement:$2@$1/placement
-
 crudini --set /etc/placement/placement.conf api auth_strategy keystone
 
+crudini --set /etc/placement/placement.conf placement_database connection mysql+pymysql://placement:$2@$1/placement
+
 configure-keystone-authentication /etc/placement/placement.conf $1 placement $5
-crudini --set /etc/placement/placement.conf paste_deploy flavor keystone
-crudini --set /etc/placement/placement.conf placement_store stores file,http
-crudini --set /etc/placement/placement.conf placement_store default_store file
 
 echo_and_sleep "Placement 서비스 DB 업그레이드" 
 placement-manage db sync

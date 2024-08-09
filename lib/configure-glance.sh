@@ -29,11 +29,6 @@ crudini --set /etc/glance/glance-api.conf glance_store stores file,http
 crudini --set /etc/glance/glance-api.conf glance_store default_store file
 crudini --set /etc/glance/glance-api.conf glance_store filesystem_store_datadir /var/lib/glance/images
 
-crudini --set /etc/glance/glance-registry.conf database connection mysql+pymysql://glance:$2@$1/glance
-
-configure-keystone-authentication /etc/glance/glance-registry.conf $1 glance $6
-crudini --set /etc/glance/glance-registry.conf paste_deploy flavor keystone
-
 echo_and_sleep "Image 서비스 DB 업그레이드" 
 glance-manage db_sync
 

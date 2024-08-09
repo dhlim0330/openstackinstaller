@@ -97,8 +97,6 @@ then
 	echo_and_sleep "openvswitch_agent.ini 파일 수정"
 	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini agent tunnel_types vxlan
 	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini agent l2_population True
-	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini ovs bridge_mappings $neutron_ovs_bridge_mappings
-	mgmt_interface_ip=$(get-ip-address $mgmt_interface)
 	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini ovs local_ip $mgmt_interface_ip
 	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini securitygroup enable_security_group True
 	crudini --set /etc/neutron/plugins/ml2/openvswitch_agent.ini securitygroup firewall_driver openvswitch
