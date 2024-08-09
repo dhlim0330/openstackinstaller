@@ -87,7 +87,7 @@ function install-compute-packages() {
 
 	echo "Neutron (컴퓨트 노드) 설치..."
 	sleep 1
-	apt-get install neutron-plugin-openvswitch-agent -y
+	apt-get install neutron-openvswitch-agent -y
 	
 	apt-get autoremove -y
 }
