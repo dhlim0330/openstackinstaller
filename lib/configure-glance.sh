@@ -31,6 +31,7 @@ crudini --set /etc/glance/glance-api.conf glance_store filesystem_store_datadir 
 
 echo_and_sleep "Image 서비스 DB 업그레이드" 
 glance-manage db_sync
+glance-manage db_load_metadefs
 
 echo_and_sleep "Glance 서비스 재시작" 1
 service glance-api restart

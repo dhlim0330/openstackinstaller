@@ -38,6 +38,10 @@ then
 	crudini --set /etc/neutron/neutron.conf DEFAULT service_plugins router
 	crudini --set /etc/neutron/neutron.conf DEFAULT allow_overlapping_ips True
 	crudini --set /etc/neutron/neutron.conf oslo_concurrency lock_path /var/lib/neutron/tmp
+
+	echo_and_sleep "Metadata Agent 설정" 1
+	crudini --set /etc/neutron/metadata_agent.ini DEFAULT nova_metadata_host $1
+	crudini --set /etc/neutron/metadata_agent.ini DEFAULT metadata_proxy_shared_secret $3
 fi
 
 echo_and_sleep "RabbitMQ 설정" 1
@@ -86,10 +90,6 @@ then
 	crudini --set /etc/neutron/dhcp_agent.ini DEFAULT interface_driver openvswitch
 	crudini --set /etc/neutron/dhcp_agent.ini DEFAULT dhcp_driver neutron.agent.linux.dhcp.Dnsmasq
 	crudini --set /etc/neutron/dhcp_agent.ini DEFAULT enabled_isolated_metadata True
-	
-	echo_and_sleep "Metadata Agent 설정" 1
-	crudini --set /etc/neutron/metadata_agent.ini DEFAULT nova_metadata_host $1
-	crudini --set /etc/neutron/metadata_agent.ini DEFAULT metadata_proxy_shared_secret $3
 fi
 
 if [ "$1" == "compute" ]
