@@ -15,16 +15,22 @@ mysql -u "$5" -p"$6" -e "$mysql_command"
 echo_and_sleep "source admin-openrc.sh"
 source $(dirname $0)/admin-openrc.sh
 
-create-user-service cinder $3 cinder OpenStackVolume volume
+create-user-service cinder $3 cinder OpenStackVolume volumev3
 
 echo_and_sleep "Cinder 서비스 엔드포인트 생성"
-create-api-endpoints volume http://$1:8776/v3/%\(project_id\)s
+create-api-endpoints volumev3 http://$1:8776/v3/%\(project_id\)s
 
 echo_and_sleep "Cinder 설정"
 crudini --set /etc/cinder/cinder.conf DEFAULT transport_url rabbit://openstack:$2@$1
 crudini --set /etc/cinder/cinder.conf database connection mysql+pymysql://cinder:$4@$1/cinder
 configure-keystone-authentication /etc/cinder/cinder.conf $1 cinder $3
 crudini --set /etc/cinder/cinder.conf oslo_concurrency lock_path /var/lib/cinder/tmp
+
+
+crudini --set /etc/cinder/cinder.conf lvm volume_driver cinder.volume.drivers.lvm.LVMVolumeDriver
+crudini --set /etc/cinder/cinder.conf lvm volume_group cinder-volumes
+crudini --set /etc/cinder/cinder.conf lvm target_protocol iscsi
+crudini --set /etc/cinder/cinder.conf lvm target_helper tgtadm
 
 echo_and_sleep "Cinder 서비스 DB 초기화" 
 cinder-manage db sync

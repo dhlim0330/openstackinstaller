@@ -8,7 +8,7 @@ function install-neutron-packages-controller() {
 function install-cinder-packages-controller() {
 	echo "Cinder (컨트롤러 노드) 설치..."
 	sleep 1
-	apt-get install cinder-api cinder-scheduler -y
+	apt-get install tgt cinder-api cinder-scheduler cinder-volume -y
 }
 
 function install-common-packages() {
