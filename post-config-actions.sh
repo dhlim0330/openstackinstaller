@@ -15,10 +15,14 @@ then
         chmod a+rx /var/log/neutron
         chmod a+rx /var/log/apache2
         chmod a+rx /var/log/keystone
+        chmod a+rx /var/log/glance
+        chmod a+rx /var/log/cinder
         ln -s /var/log/nova /var/www/html/oslogs/nova
         ln -s /var/log/neutron /var/www/html/oslogs/neutron
         ln -s /var/log/apache2 /var/www/html/oslogs/apache2
         ln -s /var/log/keystone /var/www/html/oslogs/keystone
+        ln -s /var/log/keystone /var/www/html/oslogs/glance
+        ln -s /var/log/keystone /var/www/html/oslogs/cinder
         echo "웹 로그 url: http://<controller_ip>/oslogs"
     #fi
 
