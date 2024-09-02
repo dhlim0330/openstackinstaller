@@ -21,8 +21,8 @@ then
         ln -s /var/log/neutron /var/www/html/oslogs/neutron
         ln -s /var/log/apache2 /var/www/html/oslogs/apache2
         ln -s /var/log/keystone /var/www/html/oslogs/keystone
-        ln -s /var/log/keystone /var/www/html/oslogs/glance
-        ln -s /var/log/keystone /var/www/html/oslogs/cinder
+        ln -s /var/log/glance /var/www/html/oslogs/glance
+        ln -s /var/log/cinder /var/www/html/oslogs/cinder
         echo "웹 로그 url: http://<controller_ip>/oslogs"
     #fi
 
