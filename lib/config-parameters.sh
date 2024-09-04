@@ -33,6 +33,7 @@ readonly neutron_db_password="Passw0rd1"
 
 readonly cinder_password="Passw0rd1"
 readonly cinder_db_password="Passw0rd1"
+readonly cinder_vg_name="ubuntu-vg"
 
 function echo_and_sleep() {
 	if [ -z "$2" ]

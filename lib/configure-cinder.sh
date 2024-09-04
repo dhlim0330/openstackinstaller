@@ -26,9 +26,8 @@ crudini --set /etc/cinder/cinder.conf database connection mysql+pymysql://cinder
 configure-keystone-authentication /etc/cinder/cinder.conf $1 cinder $3
 crudini --set /etc/cinder/cinder.conf oslo_concurrency lock_path /var/lib/cinder/tmp
 
-
 crudini --set /etc/cinder/cinder.conf lvm volume_driver cinder.volume.drivers.lvm.LVMVolumeDriver
-crudini --set /etc/cinder/cinder.conf lvm volume_group cinder-volumes
+crudini --set /etc/cinder/cinder.conf lvm volume_group $cinder_vg_name
 crudini --set /etc/cinder/cinder.conf lvm target_protocol iscsi
 crudini --set /etc/cinder/cinder.conf lvm target_helper tgtadm
 

@@ -20,6 +20,7 @@ function install-common-packages() {
 	sleep 1
 	apt-get install chrony -y
 	service chrony restart
+	timedatectl set-timezone Asia/Seoul
 
 	echo "시스템 업데이트..."
 	sleep 1
