@@ -94,7 +94,6 @@ then
     install-common-packages
     install-controller-packages
     install-compute-packages
-    install-networknode-packages
 elif [ "$1" == "controller" ] || [ "$1" == "compute" ]
 then
     install-common-packages

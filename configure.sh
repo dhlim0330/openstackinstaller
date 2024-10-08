@@ -31,7 +31,6 @@ then
 	echo "패키지 설정: All-in-one"
 	sleep 1
 	bash $dir_path/lib/configure-packages.sh controller $1
-	bash $dir_path/lib/configure-packages.sh networknode
 	bash $dir_path/lib/configure-packages.sh compute 
 	nova-manage cell_v2 discover_hosts
 elif [ "$node_type" == "compute" ]
