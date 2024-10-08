@@ -51,7 +51,7 @@ then
 		echo "올바른 형식: $0 <mgmt_interface> <controller_host_name>"
 		exit 1;
 	fi
-elif [ "$node_type" == "compute" ] || [ "$node_type" == "networknode" ]
+elif [ "$node_type" == "compute" ]
 then
 	if [ $# -eq 3 ]
 	then

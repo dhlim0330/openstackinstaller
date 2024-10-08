@@ -2,7 +2,7 @@ echo "실행: $0 $@"
 source $(dirname $0)/config-parameters.sh
 if [ $# -lt 1 ]
 then
-    echo "올바른 구문: $0 <cotroller-host-name>"
+    echo "올바른 구문: $0 <controller-host-name>"
     exit 1
 fi
 echo_and_sleep "local_settings.py 를 /etc/openstack-dashboard 로 복사하는 중" 2

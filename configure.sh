@@ -34,14 +34,14 @@ then
 	bash $dir_path/lib/configure-packages.sh networknode
 	bash $dir_path/lib/configure-packages.sh compute 
 	nova-manage cell_v2 discover_hosts
-elif [ "$node_type" == "compute" ] || [ "$node_type" == "networknode" ]
+elif [ "$node_type" == "compute" ]
 then
 	echo "패키지 설정: "$node_type
 	sleep 1
 	bash $dir_path/lib/configure-packages.sh $node_type 
-elif [ "$node_type" == "controller" ] || [ "$node_type" == "controller_networknode" ]
+elif [ "$node_type" == "controller" ]
 then
-	echo "패키지 설정: controller and network"
+	echo "패키지 설정: controller"
 	sleep 1
 	bash $dir_path/lib/configure-packages.sh controller $1
 else

@@ -2,10 +2,10 @@ echo "실행: $0 $@"
 source $(dirname $0)/config-parameters.sh
 source $(dirname $0)/admin-openrc.sh
 
-if [ "$1" != "compute" -a "$1" != "networknode" -a "$1" != "controller" ]
+if [ "$1" != "compute" -a "$1" != "controller" ]
 then
 	echo "노드 타입 오류: $1"
-	echo "올바른 구문: $0 [ controller | compute | networknode ]  <controller-host-name> <rabbitmq-password> <neutron-password> <neutron-db-password> <mysql-username> <mysql-password>"
+	echo "올바른 구문: $0 [ controller | compute ]  <controller-host-name> <rabbitmq-password> <neutron-password> <neutron-db-password> <mysql-username> <mysql-password>"
 	exit 1;
 fi
 
@@ -13,9 +13,9 @@ if [ "$1" == "controller" ] && [ $# -ne 7 ]
 then
 	echo "올바른 구문: $0 controller <controller-host-name> <rabbitmq-password> <neutron-password> <neutron-db-password> <mysql-username> <mysql-password>"
     exit 1;
-elif [ "$1" == "compute" ] || [ "$1" == "networknode" ] && [ $# -ne 4 ]
+elif [ "$1" == "compute" ]  && [ $# -ne 4 ]
 then
-	echo "올바른 구문: $0 [ compute | networknode ] <controller-host-name> <rabbitmq-password> <neutron-password>"
+	echo "올바른 구문: $0 compute <controller-host-name> <rabbitmq-password> <neutron-password>"
 	exit 1;
 fi
 
@@ -52,7 +52,7 @@ configure-keystone-authentication /etc/neutron/neutron.conf $2 neutron $4
 
 crudini --set /etc/neutron/neutron.conf DEFAULT verbose True
 
-if [ "$1" == "networknode" -o "$1" == "controller" ]
+if [ "$1" == "controller" ]
 then
 	crudini --set /etc/neutron/neutron.conf DEFAULT notify_nova_on_port_status_changes True
 	crudini --set /etc/neutron/neutron.conf DEFAULT notify_nova_on_port_data_changes True
@@ -144,10 +144,4 @@ elif [ "$1" == "compute" ]
 then
 	service nova-compute restart
 	service neutron-openvswitch-agent restart
-elif [ "$1" == "networknode" ]
-then
-	service neutron-openvswitch-agent restart
-	service neutron-l3-agent restart
-	service neutron-dhcp-agent restart
-	service neutron-metadata-agent restart
 fi

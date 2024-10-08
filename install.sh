@@ -64,20 +64,8 @@ function install-controller-packages() {
 	
 	install-cinder-packages-controller 
 
-	echo "네트워크 노드 컴포넌트 설치..."
-	sleep 1
-	install-networknode-packages
-
 	echo "autoremove 진행..."
 	sleep 1
-	apt-get autoremove -y
-}
-
-function install-networknode-packages() {
-	echo "Neutron (네트워크 노드) 설치..."
-	sleep 1
-	apt-get install neutron-server neutron-plugin-ml2 neutron-l3-agent \
-  		neutron-openvswitch-agent neutron-dhcp-agent neutron-metadata-agent -y
 	apt-get autoremove -y
 }
 
@@ -95,7 +83,7 @@ function install-compute-packages() {
 
 if [ $# -ne 1 ]
 then
-    echo "올바른 형식: $0 [ allinone | controller | compute | networknode ] "
+    echo "올바른 형식: $0 [ allinone | controller | compute ] "
     exit 1;
 fi
 
@@ -107,14 +95,14 @@ then
     install-controller-packages
     install-compute-packages
     install-networknode-packages
-elif [ "$1" == "controller" ] || [ "$1" == "compute" ] || [ "$1" == "networknode" ]
+elif [ "$1" == "controller" ] || [ "$1" == "compute" ]
 then
     install-common-packages
     echo "패키지 설치: "$1
     sleep 1
     install-$1-packages
 else
-	echo "올바른 형식: $0 [ allinone | controller | compute | networknode ]"
+	echo "올바른 형식: $0 [ allinone | controller | compute ]"
 	exit 1;
 fi
 

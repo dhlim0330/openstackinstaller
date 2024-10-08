@@ -7,32 +7,32 @@ readonly data_interface="eth0"
 # Neutron 관련 설정
 readonly neutron_ovs_tenant_network_type="vxlan"
 readonly neutron_ovs_bridge_mappings="extnet:br-ex"
-readonly neutron_ovs_bridge_address="172.24.4.1/24"
+readonly neutron_ovs_bridge_address="172.16.5.27/24"
 
 readonly mysql_user="root"
-readonly mysql_password="Passw0rd1"
+readonly mysql_password="123qwe"
 
 readonly rabbitmq_user="openstack"
-readonly rabbitmq_password="Passw0rd1"
+readonly rabbitmq_password="123qwe"
 
-readonly keystone_db_password="Passw0rd1"
+readonly keystone_db_password="123qwe"
 
-readonly glance_password="Passw0rd1"
-readonly glance_db_password="Passw0rd1"
+readonly glance_password="123qwe"
+readonly glance_db_password="123qwe"
 
-readonly admin_tenant_password="Passw0rd1"
+readonly admin_tenant_password="123qwe"
 
-readonly placement_password="Passw0rd1"
-readonly placement_db_password="Passw0rd1"
+readonly placement_password="123qwe"
+readonly placement_db_password="123qwe"
 
-readonly nova_password="Passw0rd1"
-readonly nova_db_password="Passw0rd1"
+readonly nova_password="123qwe"
+readonly nova_db_password="123qwe"
 
-readonly neutron_password="Passw0rd1"
-readonly neutron_db_password="Passw0rd1"
+readonly neutron_password="123qwe"
+readonly neutron_db_password="123qwe"
 
-readonly cinder_password="Passw0rd1"
-readonly cinder_db_password="Passw0rd1"
+readonly cinder_password="123qwe"
+readonly cinder_db_password="123qwe"
 readonly cinder_vg_name="ubuntu-vg"
 
 function echo_and_sleep() {
