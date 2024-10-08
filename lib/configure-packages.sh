@@ -40,7 +40,6 @@ function configure-mysql-controller() {
 if [ "$1" == "compute" ]
 then
 	echo_and_sleep "컴퓨트 노드 설정" 1
-	#bash $(dirname $0)/configure-forwarding.sh compute
 
 	echo_and_sleep "컴퓨트 노드 Nova 설정" 1
 	bash $(dirname $0)/configure-nova.sh compute $controller_host_name $nova_password $rabbitmq_password
