@@ -20,7 +20,7 @@ then
         ln -s /var/log/glance /var/www/html/oslogs/glance
         ln -s /var/log/cinder /var/www/html/oslogs/cinder
         echo "웹 로그 url: http://<controller_ip>/oslogs"
-    #fi
+fi
 
 echo "******************************************"
 echo "**       post-config-actions 완료       **"	
