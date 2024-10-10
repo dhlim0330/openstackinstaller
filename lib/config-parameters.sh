@@ -9,6 +9,8 @@ readonly neutron_ovs_tenant_network_type="vxlan"
 readonly neutron_ovs_bridge_mappings="extnet:br-ex"
 readonly neutron_ovs_bridge_address="172.16.5.27/24"
 
+readonly default_password="123qwe"
+
 readonly mysql_user="root"
 readonly mysql_password="123qwe"
 
