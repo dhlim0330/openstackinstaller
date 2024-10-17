@@ -4,7 +4,6 @@ echo "노드 타입: $node_type"
 echo "config-parameters 참조..."
 source $dir_path/lib/config-parameters.sh
 echo "관리 인터페이스: "$mgmt_interface
-echo "데이터 인터페이스: "$data_interface
 echo "컨트롤러 호스트 이름: "$controller_host_name
 
 sleep 1

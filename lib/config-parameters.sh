@@ -2,7 +2,6 @@ controller_host_name="controller"
 
 # NIC 인터페이스 설정
 readonly mgmt_interface="eth1"
-readonly data_interface="eth0"
 readonly external_interface="eth2"
 
 # Neutron 관련 설정
