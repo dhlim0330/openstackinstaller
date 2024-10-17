@@ -122,6 +122,7 @@ fi
 if [ "$1" == "controller" ]
 then
     ovs-vsctl add-br br-ex
+	ovs-vsctl add-port br-ex $external_interface
     ip addr add $neutron_ovs_bridge_address dev br-ex
     ip link set dev br-ex up
 

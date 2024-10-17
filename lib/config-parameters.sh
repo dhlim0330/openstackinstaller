@@ -3,11 +3,12 @@ controller_host_name="controller"
 # NIC 인터페이스 설정
 readonly mgmt_interface="eth1"
 readonly data_interface="eth0"
+readonly external_interface="eth2"
 
 # Neutron 관련 설정
 readonly neutron_ovs_tenant_network_type="vxlan"
 readonly neutron_ovs_bridge_mappings="extnet:br-ex"
-readonly neutron_ovs_bridge_address="172.16.5.27/24"
+readonly neutron_ovs_bridge_address="0.0.0.0/24"
 
 readonly default_password="123qwe"
 
