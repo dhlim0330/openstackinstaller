@@ -9,7 +9,7 @@ function configure-mysql-controller() {
         echo_and_sleep "새 DB Conf 파일 생성: $mysql_conf_file"
         touch $mysql_conf_file
         echo_and_sleep "바인드 주소 업데이트" 1
-        crudini --set $mysql_conf_file mysqld bind-address $1
+        crudini --set $mysql_conf_file mysqld bind-address $controller_host_name
         crudini --set $mysql_conf_file mysqld default-storage-engine innodb
         crudini --set $mysql_conf_file mysqld collation-server utf8_general_ci
         crudini --set $mysql_conf_file mysqld character-set-server utf8
@@ -19,7 +19,7 @@ function configure-mysql-controller() {
 		echo_and_sleep "MariaDB Conf 파일 발견되지 않음" 1
 		mysql_conf_file="/etc/mysql/my.cnf"
         echo_and_sleep "바인드 주소 업데이트" 1
-		sed -i "s/127.0.0.1/$1/g" $mysql_conf_file
+		sed -i "s/127.0.0.1/$controller_host_name/g" $mysql_conf_file
         grep "bind" $mysql_conf_file
 
         sed -i "/\[mysqld\]/a default-storage-engine = innodb\\
@@ -65,7 +65,7 @@ then
 	service rabbitmq-server restart
 
 	echo_and_sleep "memcached 설정"
-	sed -i "s/127.0.0.1/$1/g" /etc/memcached.conf
+	sed -i "s/127.0.0.1/$controller_host_name/g" /etc/memcached.conf
 	service memcached restart
 		
 	echo_and_sleep "Keystone 설정"

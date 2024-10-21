@@ -10,6 +10,7 @@ cp $(dirname $0)/local_settings.py /etc/openstack-dashboard/
 
 sed -e "/^OPENSTACK_HOST =.*$/s/^.*$/OPENSTACK_HOST = \""$1"\"/" -i /etc/openstack-dashboard/local_settings.py
 sed -e "/^'LOCATION.*$/s/^.*$/'LOCATION': \'"$1:1121"\'/" -i /etc/openstack-dashboard/local_settings.py
+sed -e "/'LOCATION':.*controller:11211/s/'LOCATION':.*'controller:11211'/'LOCATION': '$1:11211'/" -i /etc/openstack-dashboard/local_settings.py
 grep "OPENSTACK_HOST" /etc/openstack-dashboard/local_settings.py
 grep "LOCATION" /etc/openstack-dashboard/local_settings.py
 echo_and_sleep "apache2 재시작 중" 1

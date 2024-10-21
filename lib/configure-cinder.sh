@@ -35,7 +35,7 @@ echo_and_sleep "Cinder 서비스 DB 초기화"
 cinder-manage db sync
 
 echo_and_sleep "Cinder 서비스 재시작" 1
-service cinder-scheduler restart
+service cinder-scheduler cinder-volume restart
 service nova-api restart
 
 echo_and_sleep "Cinder MySQL-Lite DB 삭제" 
