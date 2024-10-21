@@ -35,7 +35,7 @@ readonly neutron_db_password="123qwe"
 
 readonly cinder_password="123qwe"
 readonly cinder_db_password="123qwe"
-readonly cinder_vg_name="ubuntu-vg"
+readonly cinder_vg_name="cinder-volumes"
 
 function echo_and_sleep() {
 	if [ -z "$2" ]

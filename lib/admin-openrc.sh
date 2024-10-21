@@ -14,7 +14,7 @@ else
 	final_controller_host_name=$controller_host_name
 fi
 
-echo "확정된 컨트롤러 이름: "$final_controller_host_name
+echo "확정된 컨트롤러 이름: "$final_controller_host_name"
 	
 export OS_PROJECT_DOMAIN_NAME=Default
 export OS_USER_DOMAIN_NAME=Default
