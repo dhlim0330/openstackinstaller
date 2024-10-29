@@ -55,6 +55,7 @@ openstack project create --domain default --description "Demo Project" demo
 openstack user create --domain default --password password demo
 openstack role create user
 openstack role add --project demo --user demo user
+openstack role create service
 
 echo_and_sleep "Keystone 서비스 재시작" 1
 source $(dirname $0)/admin-openrc.sh

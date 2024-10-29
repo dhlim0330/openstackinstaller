@@ -1,14 +1,15 @@
-controller_host_name="controller"
+controller_host_name="controller" # 컨트롤러 호스트 이름 (변경 X)
 
 # NIC 인터페이스 설정
-readonly mgmt_interface="eth1"
-readonly external_interface="eth2"
+readonly mgmt_interface="eth1" # 관리 인터페이스 (필요에 따라 변경)
+readonly external_interface="eth1" # 외부 인터페이스 (필요에 따라 변경)
 
 # Neutron 관련 설정
-readonly neutron_ovs_tenant_network_type="vxlan"
-readonly neutron_ovs_bridge_mappings="extnet:br-ex"
-readonly neutron_ovs_bridge_address="0.0.0.0/24"
+readonly neutron_ovs_bridge_address="0.0.0.0/24" #(변경 필요)
+readonly neutron_ovs_bridge_mappings="extnet:br-ex" #(변경 X)
+readonly neutron_ovs_tenant_network_type="vxlan" #(변경 X)
 
+# 이하 항목들은 필요에 따라 변경 가능하지만, 충분한 테스트가 진행되지 않았으므로 수정을 권장하지 않음
 readonly default_password="123qwe"
 
 readonly mysql_user="root"
