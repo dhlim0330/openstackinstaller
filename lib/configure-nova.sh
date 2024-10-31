@@ -55,7 +55,7 @@ crudini --set /etc/nova/nova.conf DEFAULT transport_url rabbit://openstack:$4@$2
 crudini --set /etc/nova/nova.conf api auth_strategy keystone
 configure-keystone-authentication /etc/nova/nova.conf $2 nova $3
 
-crudini --set $1 service_user send_service_user_token = True
+crudini --set $1 service_user send_service_user_token True
 crudini --set $1 service_user www_authenticate_uri http://$2:5000
 crudini --set $1 service_user auth_url http://$2:5000
 crudini --set $1 service_user auth_type password

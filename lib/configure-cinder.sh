@@ -27,7 +27,7 @@ crudini --set /etc/cinder/cinder.conf DEFAULT transport_url rabbit://openstack:$
 crudini --set /etc/cinder/cinder.conf database connection mysql+pymysql://cinder:$4@$1/cinder
 configure-keystone-authentication /etc/cinder/cinder.conf $1 cinder $3
 
-crudini --set /etc/cinder/cinder.conf keystone_authtoken service_token_roles = service
+crudini --set /etc/cinder/cinder.conf keystone_authtoken service_token_roles service
 crudini --set /etc/cinder/cinder.conf keystone_authtoken service_token_roles_required True
 
 crudini --set /etc/cinder/cinder.conf oslo_concurrency lock_path /var/lib/cinder/tmp
