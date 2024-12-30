@@ -5,6 +5,7 @@ echo "config-parameters 참조..."
 source $dir_path/lib/config-parameters.sh
 echo "관리 인터페이스: "$mgmt_interface
 echo "컨트롤러 호스트 이름: "$controller_host_name
+echo "컴퓨트 호스트 이름: "$compute_host_name
 
 sleep 1
 
@@ -16,10 +17,14 @@ fi
 
 if [ "$node_type" == "allinone" ] || [ "$node_type" == "controller" ] 
 then
+	echo "호스트 이름 변경"
+	hostnamectl set-hostname $controller_host_name
 	echo "/etc/hosts 업데이트 (컨트롤러 노드)"
 	sleep 1
 	bash $dir_path/util/update-etc-hosts.sh $mgmt_interface $controller_host_name
 else
+	echo "호스트 이름 변경"
+	hostnamectl set-hostname $compute_host_name
 	echo "/etc/hosts 업데이트 (비 컨트롤러 노드)"
 	sleep 1
 	bash $dir_path/util/update-etc-hosts.sh $mgmt_interface $controller_host_name $1

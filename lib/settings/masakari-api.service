@@ -1,0 +1,13 @@
+[Unit] 
+Description=Masakari API Service 
+After=network.target 
+
+[Service] 
+Type=simple 
+User=masakari 
+Group=masakari 
+ExecStart=/usr/bin/masakari-api  
+Restart=on-failure 
+
+[Install] 
+WantedBy=multi-user.target 

@@ -6,7 +6,7 @@ then
     exit 1
 fi
 echo_and_sleep "local_settings.py 를 /etc/openstack-dashboard 로 복사하는 중" 2
-cp $(dirname $0)/local_settings.py /etc/openstack-dashboard/
+cp $(dirname $0)/settings/local_settings.py /etc/openstack-dashboard/
 
 sed -e "/^OPENSTACK_HOST =.*$/s/^.*$/OPENSTACK_HOST = \""$1"\"/" -i /etc/openstack-dashboard/local_settings.py
 sed -e "/^'LOCATION.*$/s/^.*$/'LOCATION': \'"$1:1121"\'/" -i /etc/openstack-dashboard/local_settings.py

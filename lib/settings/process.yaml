@@ -1,0 +1,39 @@
+    # libvirt-bin 
+    process_name: /usr/sbin/libvirtd 
+    start_command: systemctl start libvirtd 
+    pre_start_command: 
+    post_start_command: #systemctl stop libvirtd* && systemctl start libvirtd-tcp.socket 
+    restart_command: systemctl restart libvirt 
+    post_restart_command: #systemctl stop libvirtd* && systemctl start libvirtd-tcp.socket 
+    pre_restart_command: 
+    run_as_root: True 
+
+    # nova-compute 
+    process_name: /usr/bin/nova-compute 
+    start_command: systemctl start nova-compute 
+    pre_start_command: 
+    post_start_command: 
+    restart_command: systemctl restart nova-compute 
+    pre_restart_command: 
+    post_restart_command: 
+    run_as_root: True 
+
+    # instancemonitor 
+    process_name: /usr/bin/python3 /usr/bin/masakari-instancemonitor 
+    start_command: systemctl start masakari-instance-monitor 
+    pre_start_command: 
+    post_start_command: 
+    restart_command: systemctl restart masakari-instance-monitor 
+    pre_restart_command: 
+    post_restart_command: 
+    run_as_root: True 
+
+    # hostmonitor 
+    process_name: /usr/bin/python3 /usr/bin/masakari-hostmonitor 
+    start_command: systemctl start masakari-host-monitor 
+    pre_start_command: 
+    post_start_command: 
+    restart_command: systemctl restart masakari-host-monitor 
+    pre_restart_command: 
+    post_restart_command: 
+    run_as_root: True 

@@ -1,4 +1,5 @@
 controller_host_name="controller" # 컨트롤러 호스트 이름 (변경 X)
+compute_host_name="compute1" # 컴퓨트 호스트 이름 (필요에 따라 변경)
 
 # NIC 인터페이스 설정
 readonly mgmt_interface="eth1" # 관리 인터페이스 (필요에 따라 변경)
@@ -9,8 +10,25 @@ readonly neutron_ovs_bridge_address="0.0.0.0/24" #(변경 필요)
 readonly neutron_ovs_bridge_mappings="extnet:br-ex" #(변경 X)
 readonly neutron_ovs_tenant_network_type="vxlan" #(변경 X)
 
+# 설치 타입 설정
+readonly node_type="controller" # 노드 타입 (controller | compute)
+readonly install_common_package="true" # 공통 패키지 설치 여부
+readonly install_controller_package="true" # 컨트롤러 패키지 설치 여부
+readonly install_compute_package="true" # 컴퓨트 패키지 설치 여부
+
+# OpenStack 서비스 설치 여부
+readonly install_glance="true" # Glance 설치 여부
+readonly install_placement="true" # Placement 설치 여부 
+readonly install_nova="true" # Nova 설치 여부
+readonly install_neutron="true" # Neutron 설치 여부
+readonly install_horizon="true" # Horizon 설치 여부
+readonly install_cinder="true" # Cinder 설치 여부
+readonly install_masakari="true" # Masakari 설치 여부
+
 # 이하 항목들은 필요에 따라 변경 가능하지만, 충분한 테스트가 진행되지 않았으므로 수정을 권장하지 않음
 readonly default_password="123qwe"
+
+readonly admin_tenant_password="123qwe"
 
 readonly mysql_user="root"
 readonly mysql_password="123qwe"
@@ -23,8 +41,6 @@ readonly keystone_db_password="123qwe"
 readonly glance_password="123qwe"
 readonly glance_db_password="123qwe"
 
-readonly admin_tenant_password="123qwe"
-
 readonly placement_password="123qwe"
 readonly placement_db_password="123qwe"
 
@@ -33,6 +49,9 @@ readonly nova_db_password="123qwe"
 
 readonly neutron_password="123qwe"
 readonly neutron_db_password="123qwe"
+
+readonly masakari_password="123qwe"
+readonly masakari_db_password="123qwe"
 
 readonly cinder_password="123qwe"
 readonly cinder_db_password="123qwe"
