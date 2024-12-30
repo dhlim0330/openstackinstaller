@@ -74,8 +74,8 @@ then
     systemctl start masakari-api
 
     python3 lib/settings/masakari-dashboard/setup.py install 
-    cp lib/settings/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
-    cp lib/settings/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
+    cp lib/settings/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py /usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
+    cp lib/settings/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py /usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
     cp lib/settings/masakari-dashboard/masakaridashboard/conf/masakari_policy.json /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
     cd /usr/share/openstack-dashboard 
     python3 /usr/share/openstack-dashboard/manage.py collectstatic 
