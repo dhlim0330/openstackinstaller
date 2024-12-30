@@ -63,16 +63,20 @@ then
 
     crudini --set /etc/masakari/masakari.conf taskflow connection mysql+pymysql://masakari:$5@$2/masakari
     
+
 	echo_and_sleep "DB 업그레이드" 1
 	masakari-manage db sync
 	echo_and_sleep "Masakari 서비스 재시작" 1
-	service masakari-api restart
 	service masakari-engine restart
 
-    python3 settings/masakari-dashboard/setup.py install 
-    cp settings/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
-    cp settings/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
-    cp settings/masakari-dashboard/masakaridashboard/conf/masakari_policy.json /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
+    cp lib/settings/masakari-api.service /etc/systemd/system/
+	systemctl enable masaakari-api
+    systemctl start masakari-api
+
+    python3 lib/settings/masakari-dashboard/setup.py install 
+    cp lib/settings/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
+    cp lib/settings/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
+    cp lib/settings/masakari-dashboard/masakaridashboard/conf/masakari_policy.json /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
     cd /usr/share/openstack-dashboard 
     python3 /usr/share/openstack-dashboard/manage.py collectstatic 
     python3 /usr/share/openstack-dashboard/manage.py compress 
