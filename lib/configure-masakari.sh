@@ -69,10 +69,10 @@ then
 	service masakari-api restart
 	service masakari-engine restart
 
-    python3 ../util/masakari-dashboard/setup.py install 
-    cp ../util/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
-    cp ../util/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
-    cp ../util/masakari-dashboard/masakaridashboard/conf/masakari_policy.json /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
+    python3 settings/masakari-dashboard/setup.py install 
+    cp settings/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
+    cp settings/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
+    cp settings/masakari-dashboard/masakaridashboard/conf/masakari_policy.json /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
     cd /usr/share/openstack-dashboard 
     python3 /usr/share/openstack-dashboard/manage.py collectstatic 
     python3 /usr/share/openstack-dashboard/manage.py compress 

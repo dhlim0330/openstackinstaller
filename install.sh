@@ -94,7 +94,7 @@ function install-compute-packages() {
 function install-masakari-packages-controller() {
 	echo "Masakari 설치..."
 	sleep 1
-	apt install apt install masakari-engine masakari-api python3-masakariclient -y
+	apt install masakari-engine masakari-api python3-masakariclient -y
 	apt install pcs fence-agents resource-agents -y
 
 	echo -e "123qwe\n123qwe" | passwd hacluster
