@@ -66,7 +66,7 @@ function install-controller-packages() {
 
 	if [ "$install_masakari" == "true" ]
 	then
-		install_masakari-packages-controller
+		install-masakari-packages-controller
 	fi
 
 	echo "autoremove 진행..."
