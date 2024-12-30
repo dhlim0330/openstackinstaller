@@ -69,13 +69,10 @@ then
 	service masakari-api restart
 	service masakari-engine restart
 
-    
-    echo_and_sleep "process.yaml 를 /etc/masakarimonitors/ 로 복사하는 중" 2
-    cp $(dirname $0)/settings/process.yaml /etc/openstack-dashboard/
-    python3 setup.py install 
-    cp masakaridashboard/local/enabled/_50_masakaridashboard.py usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
-    cp masakaridashboard/local/local_settings.d/_50_masakari.py usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
-    cp masakaridashboard/conf/masakari_policy.json /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
+    python3 ../util/masakari-dashboard/setup.py install 
+    cp ../util/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
+    cp ../util/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
+    cp ../util/masakari-dashboard/masakaridashboard/conf/masakari_policy.json /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
     cd /usr/share/openstack-dashboard 
     python3 /usr/share/openstack-dashboard/manage.py collectstatic 
     python3 /usr/share/openstack-dashboard/manage.py compress 
@@ -108,6 +105,9 @@ then
     crudini --set /etc/masakari/masakarimonitors.conf host corosync_multicast_interfaces $mgmt_interface 
     crudini --set /etc/masakari/masakarimonitors.conf host corosync_multicast_ports 5405 
     crudini --set /etc/masakari/masakarimonitors.conf host pacemaker_node_type remote 
+
+    echo_and_sleep "process.yaml 를 /etc/masakarimonitors/ 로 복사하는 중" 2
+    cp $(dirname $0)/settings/process.yaml /etc/openstack-dashboard/
 
     echo "Masakari 서비스 재시작"
 	service masakari-host-monitor restart
