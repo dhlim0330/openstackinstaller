@@ -1,3 +1,5 @@
+source $(dirname $0)/config-parameters.sh
+
 function install-neutron-packages-controller() {
 	echo "Neutron (컨트롤러 노드) 설치..."
 	sleep 1

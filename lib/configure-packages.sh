@@ -98,7 +98,7 @@ then
 	if [ "$install_masakari" == "true" ]
 	then
 		echo_and_sleep "Masakari 설정"
-		bash $(dirname $0)/configure-masakari.sh $controller_host_name $masakari_password $rabbitmq_password $masakari_db_password $mysql_user $mysql_password 
+		bash $(dirname $0)/configure-masakari.sh controller $controller_host_name $masakari_password $rabbitmq_password $masakari_db_password $mysql_user $mysql_password 
 	fi
 else
     echo "올바른 구문 1: $0 controller <controller_ip_address>"
