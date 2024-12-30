@@ -1,4 +1,4 @@
-source $(dirname $0)/config-parameters.sh
+source $(dirname $0)/lib/config-parameters.sh
 
 function install-neutron-packages-controller() {
 	echo "Neutron (컨트롤러 노드) 설치..."
@@ -85,7 +85,7 @@ function install-compute-packages() {
 
 	if [ "$install_masakari" == "true" ]
 	then
-		install_masakari-packages-compute
+		install-masakari-packages-compute
 	fi
 	
 	apt autoremove -y
