@@ -62,6 +62,11 @@ function install-controller-packages() {
 	
 	install-cinder-packages-controller 
 
+	if [ "$install_masakari" == "true" ]
+	then
+		install_masakari-packages-controller
+	fi
+
 	echo "autoremove 진행..."
 	sleep 1
 	apt autoremove -y
@@ -75,6 +80,11 @@ function install-compute-packages() {
 	echo "Neutron (컴퓨트 노드) 설치..."
 	sleep 1
 	apt install neutron-openvswitch-agent -y
+
+	if [ "$install_masakari" == "true" ]
+	then
+		install_masakari-packages-compute
+	fi
 	
 	apt autoremove -y
 }

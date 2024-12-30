@@ -46,6 +46,12 @@ then
 		
 	echo_and_sleep "컴퓨트 노드 Neutron 설정" 1
 	bash $(dirname $0)/configure-neutron.sh compute $controller_host_name $rabbitmq_password $neutron_password
+
+	if [ "$install_masakari" == "true" ]
+	then
+		echo_and_sleep "Masakari 설정"
+		bash $(dirname $0)/configure-masakari.sh compute $controller_host_name $masakari_password $rabbitmq_password
+	fi
 elif [ "$1" == "controller" ] 
 then
 	if [ $# -ne 2 ]
@@ -89,6 +95,11 @@ then
 	echo_and_sleep "Horizon-Dashboard 설정"
 	bash $(dirname $0)/configure-horizon.sh $controller_host_name
 
+	if [ "$install_masakari" == "true" ]
+	then
+		echo_and_sleep "Masakari 설정"
+		bash $(dirname $0)/configure-masakari.sh $controller_host_name $masakari_password $rabbitmq_password $masakari_db_password $mysql_user $mysql_password 
+	fi
 else
     echo "올바른 구문 1: $0 controller <controller_ip_address>"
     echo "올바른 구문 2: $0 compute"
