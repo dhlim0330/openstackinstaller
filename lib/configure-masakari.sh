@@ -62,8 +62,12 @@ then
     crudini --set /etc/masakari/masakari.conf oslo_middleware enable_proxy_headers_parsing true 
 
     crudini --set /etc/masakari/masakari.conf taskflow connection mysql+pymysql://masakari:$5@$2/masakari
-    
 
+    
+    chown masakari:masakari -R /var/log/masakari 
+    chown masakari:masakari -R /etc/masakari
+
+    
 	echo_and_sleep "DB 업그레이드" 1
 	masakari-manage db sync
 	echo_and_sleep "Masakari 서비스 재시작" 1
@@ -71,7 +75,7 @@ then
     systemctl restart apache2
 
     cp lib/settings/masakari-api.service /lib/systemd/system/
-	systemctl enable masaakari-api
+	systemctl enable masakari-api
     systemctl start masakari-api
     systemctl restart apache2
 
@@ -83,7 +87,7 @@ then
     cp lib/settings/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py /usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
     cp lib/settings/masakari-dashboard/masakaridashboard/conf/masakari_policy.yaml /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
     cd /usr/share/openstack-dashboard 
-    python3 /usr/share/openstack-dashboard/manage.py collectstatic 
+    yes yes | python3 /usr/share/openstack-dashboard/manage.py collectstatic 
     python3 /usr/share/openstack-dashboard/manage.py compress 
     systemctl restart apache2 
 
