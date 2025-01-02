@@ -68,13 +68,15 @@ then
 	masakari-manage db sync
 	echo_and_sleep "Masakari 서비스 재시작" 1
 	service masakari-engine restart
+    systemctl restart apache2
 
     cp lib/settings/masakari-api.service /lib/systemd/system/
 	systemctl enable masaakari-api
     systemctl start masakari-api
+    systemctl restart apache2
 
     cd lib/settings/masakari-dashboard
-    python3 lib/settings/masakari-dashboard/setup.py install 
+    python3 setup.py install 
     cd -
     # python3 -c 'import os; os.chdir("lib/settings/masakari-dashboard"); exec(open("setup.py").read())'
     cp lib/settings/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py /usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
