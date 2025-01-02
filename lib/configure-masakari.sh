@@ -68,8 +68,9 @@ then
 
     mkdir -pv /etc/masakari 
     mkdir -pv /var/log/masakari
-    chown masakari:masakari -R /var/log/masakari 
-    chown masakari:masakari -R /etc/masakari
+    touch /var/log/masakari/masakari-api.log
+    chown masakari:masakari -Rv /var/log/masakari 
+    chown masakari:masakari -Rv /etc/masakari
 
     
 	echo_and_sleep "DB 업그레이드" 1
