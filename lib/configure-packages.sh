@@ -63,6 +63,7 @@ then
 	configure-mysql-controller $2
 	bash $(dirname $0)/mysql-secure-installation.sh $mysql_user $mysql_password
 
+	service rabbitmq-server restart
 	echo_and_sleep "Rabbit MQ: 유저 추가, 패스워드 $rabbitmq_password"
 	rabbitmqctl add_user $rabbitmq_user $rabbitmq_password
 	echo_and_sleep "Rabbit MQ: 유저 추가 완료, 권한 설정 중"

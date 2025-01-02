@@ -54,6 +54,8 @@ then
     crudini --set /etc/masakari/masakari.conf DEFAULT wait_period_after_service_update 10
 
     configure-keystone-authentication /etc/masakari/masakari.conf $2 masakari $3
+    crudini --set /etc/masakari/masakari.conf keystone_authtoken service_token_roles service
+    crudini --set /etc/masakari/masakari.conf keystone_authtoken service_token_roles_required True
 
     crudini --set /etc/masakari/masakari.conf instance_failure process_all_instances true 
     crudini --set /etc/masakari/masakari.conf oslo_messaging_amqp ssl false 
@@ -63,7 +65,8 @@ then
 
     crudini --set /etc/masakari/masakari.conf taskflow connection mysql+pymysql://masakari:$5@$2/masakari
 
-    
+    mkdir -pv /etc/masakari 
+    mkdir -pv /var/log/masakari
     chown masakari:masakari -R /var/log/masakari 
     chown masakari:masakari -R /etc/masakari
 
@@ -74,15 +77,14 @@ then
 	service masakari-engine restart
     systemctl restart apache2
 
-    cp lib/settings/masakari-api.service /lib/systemd/system/
-	systemctl enable masakari-api
-    systemctl start masakari-api
-    systemctl restart apache2
+    #cp lib/settings/masakari-api.service /lib/systemd/system/
+	#systemctl enable masakari-api
+    #systemctl start masakari-api
+    #systemctl restart apache2
 
     cd lib/settings/masakari-dashboard
     python3 setup.py install 
     cd -
-    # python3 -c 'import os; os.chdir("lib/settings/masakari-dashboard"); exec(open("setup.py").read())'
     cp lib/settings/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py /usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
     cp lib/settings/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py /usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
     cp lib/settings/masakari-dashboard/masakaridashboard/conf/masakari_policy.yaml /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
