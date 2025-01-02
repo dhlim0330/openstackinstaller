@@ -39,7 +39,7 @@ then
 	crudini --set /etc/masakari/masakari.conf database connection mysql+pymysql://masakari:$5@$2/masakari
 
     echo_and_sleep "Masakari Conf 설정" 1
-    crudini --set /etc/masakari/masakari.conf DEFAULT transport_url rabbit://openstack:$2@$1
+    crudini --set /etc/masakari/masakari.conf DEFAULT transport_url rabbit://openstack:$4@$2
     crudini --set /etc/masakari/masakari.conf DEFAULT graceful_shutdown_timeout 5 
     crudini --set /etc/masakari/masakari.conf DEFAULT os_privileged_user_tenant service  
     crudini --set /etc/masakari/masakari.conf DEFAULT os_privileged_user_name nova 
