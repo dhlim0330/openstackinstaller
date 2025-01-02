@@ -30,6 +30,7 @@ then
 	mysql -u "$6" -p"$7" -e "$mysql_command"
 
 	create-user-service masakari $3 masakari OpenStackHA instance-ha
+    openstack role add --user masakari --project service service
 	
 	echo_and_sleep "Masakari 엔드포인트 생성" 1
 	create-api-endpoints instance-ha http://$2:15868/v1/%\(tenant_id\)s
@@ -77,11 +78,12 @@ then
 	service masakari-engine restart
     systemctl restart apache2
 
-    #cp lib/settings/masakari-api.service /lib/systemd/system/
-	#systemctl enable masakari-api
-    #systemctl start masakari-api
-    #systemctl restart apache2
+    cp lib/settings/masakari-api.service /lib/systemd/system/
+	systemctl enable masakari-api
+    systemctl start masakari-api
+    systemctl restart apache2
 
+	echo_and_sleep "Masakari 대시보드 설치" 1
     cd lib/settings/masakari-dashboard
     python3 setup.py install 
     cd -
