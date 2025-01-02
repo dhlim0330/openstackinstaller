@@ -69,14 +69,17 @@ then
 	echo_and_sleep "Masakari 서비스 재시작" 1
 	service masakari-engine restart
 
-    cp lib/settings/masakari-api.service /etc/systemd/system/
+    cp lib/settings/masakari-api.service /lib/systemd/system/
 	systemctl enable masaakari-api
     systemctl start masakari-api
 
+    cd lib/settings/masakari-dashboard
     python3 lib/settings/masakari-dashboard/setup.py install 
+    cd -
+    # python3 -c 'import os; os.chdir("lib/settings/masakari-dashboard"); exec(open("setup.py").read())'
     cp lib/settings/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py /usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
     cp lib/settings/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py /usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
-    cp lib/settings/masakari-dashboard/masakaridashboard/conf/masakari_policy.json /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
+    cp lib/settings/masakari-dashboard/masakaridashboard/conf/masakari_policy.yaml /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
     cd /usr/share/openstack-dashboard 
     python3 /usr/share/openstack-dashboard/manage.py collectstatic 
     python3 /usr/share/openstack-dashboard/manage.py compress 
