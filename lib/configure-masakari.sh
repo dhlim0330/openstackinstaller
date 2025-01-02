@@ -100,32 +100,32 @@ elif [ "$1" == "compute" ]
 then
 	controller_ip=`getent hosts $2 | awk '{ print $1 }'`
 	echo_and_sleep "컨트롤러 노드 IP: $controller_ip" 1
-    crudini --set /etc/masakari/masakarimonitors.conf api region RegionOne 
-    crudini --set /etc/masakari/masakarimonitors.conf api www_authenticate_uri http://controller:5000 
-    crudini --set /etc/masakari/masakarimonitors.conf api auth_url http://controller:5000 
-    crudini --set /etc/masakari/masakarimonitors.conf api service_type instance-ha 
-    crudini --set /etc/masakari/masakarimonitors.conf api user_domain_id default 
-    crudini --set /etc/masakari/masakarimonitors.conf api project_name service 
-    crudini --set /etc/masakari/masakarimonitors.conf api project_domain_name Default 
-    crudini --set /etc/masakari/masakarimonitors.conf api api_interface internal 
-    crudini --set /etc/masakari/masakarimonitors.conf api username masakari 
-    crudini --set /etc/masakari/masakarimonitors.conf api password 123qwe 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf api region RegionOne 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf api www_authenticate_uri http://controller:5000 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf api auth_url http://controller:5000 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf api service_type instance-ha 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf api user_domain_id default 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf api project_name service 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf api project_domain_name Default 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf api api_interface internal 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf api username masakari 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf api password 123qwe 
 
-    crudini --set /etc/masakari/masakarimonitors.conf host monitoring_driver default 
-    crudini --set /etc/masakari/masakarimonitors.conf host monitoring_interval 60 
-    crudini --set /etc/masakari/masakarimonitors.conf host disable_ipmi_check True 
-    crudini --set /etc/masakari/masakarimonitors.conf host ipmi_timeout 5 
-    crudini --set /etc/masakari/masakarimonitors.conf host ipmi_retry_max 3 
-    crudini --set /etc/masakari/masakarimonitors.conf host ipmi_retry_interval 10 
-    crudini --set /etc/masakari/masakarimonitors.conf host restrict_to_remotes True 
-    crudini --set /etc/masakari/masakarimonitors.conf host stonith_wait 30 
-    crudini --set /etc/masakari/masakarimonitors.conf host tcpdump_timeout 5 
-    crudini --set /etc/masakari/masakarimonitors.conf host corosync_multicast_interfaces $mgmt_interface 
-    crudini --set /etc/masakari/masakarimonitors.conf host corosync_multicast_ports 5405 
-    crudini --set /etc/masakari/masakarimonitors.conf host pacemaker_node_type remote 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host monitoring_driver default 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host monitoring_interval 60 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host disable_ipmi_check True 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host ipmi_timeout 5 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host ipmi_retry_max 3 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host ipmi_retry_interval 10 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host restrict_to_remotes True 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host stonith_wait 30 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host tcpdump_timeout 5 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host corosync_multicast_interfaces $mgmt_interface 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host corosync_multicast_ports 5405 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host pacemaker_node_type remote 
 
     echo_and_sleep "process.yaml 를 /etc/masakarimonitors/ 로 복사하는 중" 2
-    cp $(dirname $0)/settings/process.yaml /etc/openstack-dashboard/
+    cp $(dirname $0)/settings/process.yaml /etc/masakarimonitors/
 
     echo "Masakari 서비스 재시작"
 	service masakari-host-monitor restart
