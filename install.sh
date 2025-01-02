@@ -104,7 +104,7 @@ function install-masakari-packages-compute() {
 	echo "Masakari 설치..."
 	sleep 1
 	apt install masakari-host-monitor masakari-instance-monitor masakari-process-monitor -y
-	apt install pcs pacemaker pacemaker-remote -y
+	apt install pcs pacemaker-remote -y
 
 	echo -e "123qwe\n123qwe" | passwd hacluster
 }
