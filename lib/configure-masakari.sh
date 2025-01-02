@@ -79,10 +79,10 @@ then
 	service masakari-engine restart
     systemctl restart apache2
 
-    cp lib/settings/masakari-api.service /lib/systemd/system/
-	systemctl enable masakari-api
-    systemctl start masakari-api
-    systemctl restart apache2
+    #cp lib/settings/masakari-api.service /lib/systemd/system/
+	#systemctl enable masakari-api
+    #systemctl start masakari-api
+    #systemctl restart apache2
 
 	echo_and_sleep "Masakari 대시보드 설치" 1
     cd lib/settings/masakari-dashboard
