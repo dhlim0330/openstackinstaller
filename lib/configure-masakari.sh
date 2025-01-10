@@ -24,6 +24,12 @@ source $(dirname $0)/admin-openrc.sh
 
 if [ "$1" == "controller" ]
 then
+    echo_and_sleep "nfs 설정"
+    mkdir -p /export/instances
+    chown nobody:nogroup /export/instances
+    chmod 755 /export/instances
+    echo "/export/instances *(rw,sync,no_root_squash)" | sudo tee -a /etc/exports
+
 	echo_and_sleep "MySQL 설정: Masakari"
 	mysql_command="CREATE DATABASE IF NOT EXISTS masakari; GRANT ALL PRIVILEGES ON masakari.* TO 'masakari'@'localhost' IDENTIFIED BY '$5'; GRANT ALL PRIVILEGES ON masakari.* TO 'masakari'@'%' IDENTIFIED BY '$5';"
 	echo "MySQL 커맨드:: "$mysql_command
@@ -79,25 +85,15 @@ then
 	service masakari-engine restart
     systemctl restart apache2
 
-    #cp lib/settings/masakari-api.service /lib/systemd/system/
-	#systemctl enable masakari-api
-    #systemctl start masakari-api
-    #systemctl restart apache2
-
-	echo_and_sleep "Masakari 대시보드 설치" 1
-    cd lib/settings/masakari-dashboard
-    python3 setup.py install 
-    cd -
-    cp lib/settings/masakari-dashboard/masakaridashboard/local/enabled/_50_masakaridashboard.py /usr/share/openstack-dashboard/openstack_dashboard/enabled/ 
-    cp lib/settings/masakari-dashboard/masakaridashboard/local/local_settings.d/_50_masakari.py /usr/share/openstack-dashboard/openstack_dashboard/local/local_settings.d/ 
-    cp lib/settings/masakari-dashboard/masakaridashboard/conf/masakari_policy.yaml /usr/share/openstack-dashboard/openstack_dashboard/conf/ 
-    cd /usr/share/openstack-dashboard 
-    yes yes | python3 /usr/share/openstack-dashboard/manage.py collectstatic 
-    python3 /usr/share/openstack-dashboard/manage.py compress 
-    systemctl restart apache2 
 
 elif [ "$1" == "compute" ]
 then
+    echo_and_sleep "nfs 설정"
+    mkdir -p /var/lib/nova/instances 
+    mount controller:/export/instances /var/lib/nova/instances -p /export/instances
+    echo "controller:/export/instances /var/lib/nova/instances nfs defaults 0 0" | tee -a /etc/fstab
+    chown nova:nova /var/lib/nova/instances
+
 	controller_ip=`getent hosts $2 | awk '{ print $1 }'`
 	echo_and_sleep "컨트롤러 노드 IP: $controller_ip" 1
     crudini --set /etc/masakarimonitors/masakarimonitors.conf api region RegionOne 
@@ -112,7 +108,7 @@ then
     crudini --set /etc/masakarimonitors/masakarimonitors.conf api password 123qwe 
 
     crudini --set /etc/masakarimonitors/masakarimonitors.conf host monitoring_driver default 
-    crudini --set /etc/masakarimonitors/masakarimonitors.conf host monitoring_interval 60 
+    crudini --set /etc/masakarimonitors/masakarimonitors.conf host monitoring_interval 10 
     crudini --set /etc/masakarimonitors/masakarimonitors.conf host disable_ipmi_check True 
     crudini --set /etc/masakarimonitors/masakarimonitors.conf host ipmi_timeout 5 
     crudini --set /etc/masakarimonitors/masakarimonitors.conf host ipmi_retry_max 3 
@@ -125,7 +121,7 @@ then
     crudini --set /etc/masakarimonitors/masakarimonitors.conf host pacemaker_node_type remote 
 
     echo_and_sleep "process.yaml 를 /etc/masakarimonitors/ 로 복사하는 중" 2
-    cp $(dirname $0)/settings/process.yaml /etc/masakarimonitors/
+    cp $(dirname $0)/settings/process_list.yaml /etc/masakarimonitors/process_list.yaml
 
     echo "Masakari 서비스 재시작"
 	service masakari-host-monitor restart

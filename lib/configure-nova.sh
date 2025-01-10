@@ -44,7 +44,7 @@ then
 	create-api-endpoints compute http://$2:8774/v2.1
 
 	openstack role add --user nova --project service service
-	
+
 	echo_and_sleep "Nova DB 연결" 1
 	crudini --set /etc/nova/nova.conf api_database connection mysql+pymysql://nova:$5@$2/nova_api
 	crudini --set /etc/nova/nova.conf database connection mysql+pymysql://nova:$5@$2/nova
@@ -67,7 +67,7 @@ crudini --set $1 service_user password $3
 
 
 mgmt_interface_ip=$(get-ip-address $mgmt_interface)
-echo "관리 인터페이스 IP: $mgmt_interface_ip"
+echo "현재 노드의 관리 인터페이스 IP: $mgmt_interface_ip"
 sleep 2
 crudini --set /etc/nova/nova.conf DEFAULT my_ip $mgmt_interface_ip
 crudini --set /etc/nova/nova.conf DEFAULT use_neutron True
@@ -87,6 +87,7 @@ crudini --set /etc/nova/nova.conf placement password $4
 if [ "$1" == "controller" ]
 then
 	crudini --set /etc/nova/nova.conf vnc server_listen $mgmt_interface_ip
+	crudini --set /etc/nova/nova.conf scheduler discover_hosts_in_cells_interval 10
 elif [ "$1" == "compute" ]
 then
 	controller_ip=`getent hosts $2 | awk '{ print $1 }'`
@@ -95,7 +96,6 @@ then
 	crudini --set /etc/nova/nova.conf vnc server_listen 0.0.0.0
 	crudini --set /etc/nova/nova.conf vnc novncproxy_base_url http://$controller_ip:6080/vnc_auto.html
 
-	crudini --set /etc/nova/nova.conf scheduler discover_hosts_in_cells_interval 10
 fi
 
 crudini --set /etc/nova/nova.conf glance api_servers http://$2:9292

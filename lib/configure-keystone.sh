@@ -14,6 +14,7 @@ mysql -u "$3" -p"$4" -e "$mysql_command"
 echo_and_sleep "Keystone Conf 설정" 1
 crudini --set /etc/keystone/keystone.conf database connection mysql+pymysql://keystone:$2@$1/keystone
 crudini --set /etc/keystone/keystone.conf token provider fernet
+crudini --set /etc/keystone/keystone.conf token expiration 3600000000
 grep "mysql" /etc/keystone/keystone.conf
 
 echo_and_sleep "Keystone DB Sync 실행" 1

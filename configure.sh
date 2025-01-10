@@ -53,6 +53,9 @@ else
 fi
 
 echo "******************************************"
-echo "**               설정 완료               **"	
-echo "** 추가 설정: post-config-actions.sh 실행 **"
+echo "**        설정 완료 (재부팅 필요)       **"	
+if [ "$node_type" == "controller" ]
+then
+	echo "** 추가 설정: post-config-actions.sh 실행 **"
+fi
 echo "******************************************"

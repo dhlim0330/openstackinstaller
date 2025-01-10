@@ -41,6 +41,8 @@ local_host_name=`hostname`
 echo "로컬 호스트 이름: $local_host_name"
 sleep 1
 
+hostnamectl set-hostname $local_host_name
+
 if [ "$node_type" == "controller" ] || [ "$node_type" == "allinone" ]
 then
 	if [ $# -eq 2 ]

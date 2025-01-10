@@ -1,4 +1,5 @@
 source $(dirname $0)/config-parameters.sh
+source $(dirname $0)/lib/config-parameters.sh
 
 if [ "$controller_host_name" == "" ]
 then
